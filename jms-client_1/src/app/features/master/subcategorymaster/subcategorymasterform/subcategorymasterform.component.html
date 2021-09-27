@@ -1,0 +1,81 @@
+
+          <div class="card card-info">
+            <div class="card-header">
+              <h3 class="card-title">Sub-Category Master</h3>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+            <form [formGroup]="subCategoryMasterForm" class="form-horizontal">
+              
+                <div class="card-body col-sm-8">
+
+                    <div class="row form-group">
+                        <label class="col-sm-4 col-form-label" >Category *</label>
+                        <div class="col-sm-6">
+                            <select class="form-control select2bs4 select2-hidden-accessible" style="height: 10px !important;width: 100%;"  formControlName="categorySelCode"
+                            [ngClass]="{ 'is-invalid': submitted && subCategoryMasterFormControls.categorySelCode.errors }" name="categorySelCode" required>
+                            <option selected="selected"></option>
+                            <option *ngFor="let x of categories" value="{{ x.id }}">
+                                {{ x.categoryCode }} - {{ x.categoryName }}
+                            </option>
+                        </select>
+                        
+                            <div *ngIf="subCategoryMasterFormControls.categorySelCode.errors" class="invalid-feedback">
+                                <div *ngIf="submitted && subCategoryMasterFormControls.categorySelCode.errors.required">Category is required</div>
+                            </div>
+                        </div>
+                    </div>
+
+                  <div class="row form-group">
+                    <label class="col-sm-4 col-form-label" for="inputEmail3">Sub-Category Code *</label>
+                    <div class="col-sm-6">
+                      <input type="text" formControlName="subCategoryCode" class="form-control" maxlength="50"
+                       [ngClass]="{ 'is-invalid': submitted && subCategoryMasterFormControls.subCategoryCode.errors }"
+                      pattern="^[a-zA-Z0-9\s]+$" />
+                      <div *ngIf="submitted && subCategoryMasterFormControls.subCategoryCode.errors" class="invalid-feedback">
+                        <div *ngIf="subCategoryMasterFormControls.subCategoryCode.errors.required">Sub-Category Code is required</div>
+                                  <div *ngIf="subCategoryMasterFormControls.subCategoryCode.errors.pattern && subCategoryMasterFormControls.subCategoryCode.dirty && subCategoryMasterFormControls.subCategoryCode.invalid">Special Characters are not allowed.</div>
+                              </div>
+                    </div>
+                  
+                  </div>
+  
+                  <div class="row form-group">
+                    <label class="col-sm-4 col-form-label" for="inputEmail3">Sub-Category Name *</label>
+                    <div class="col-sm-6">
+                      <input type="text" formControlName="subCategoryName" class="form-control" maxlength="100"
+                       [ngClass]="{ 'is-invalid': submitted && subCategoryMasterFormControls.subCategoryName.errors }"
+                      pattern="^[a-zA-Z0-9\s]+$"/>
+                      <div *ngIf="submitted && subCategoryMasterFormControls.subCategoryName.errors" class="invalid-feedback">
+                                      <div *ngIf="subCategoryMasterFormControls.subCategoryName.errors.required">Sub-Category Name is required</div>
+                                      <div *ngIf="subCategoryMasterFormControls.subCategoryName.errors.pattern && subCategoryMasterFormControls.subCategoryName.dirty && subCategoryMasterFormControls.subCategoryName.invalid">Special Characters are not allowed.</div>
+                                  </div>
+                    </div>
+                  </div>
+                  
+                </div>
+  
+                <!-- /.card-body -->
+          
+              <!-- /.row -->
+  
+              <div class="card-footer" style="align-content: center;">
+                <button type="button" (click)="SaveSubCategoryMaster()" [disabled]="loading || isbtnSaveDisabled"
+                  class="btn btn-success btn-sm mr-1 ml-1 mt-2 mb-2">
+                  <!-- <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1 mb-1"></span> -->
+                  Save
+                </button>
+                <button type="button" (click)="ShowGrid()" [hidden]="routetype" class="btn btn-primary btn-sm mr-1 ml-1 mt-2 mb-2">
+                  Back
+                </button>
+                <button type="button" (click)=ClearContents() [disabled]="isbtnClearDisabled" class="btn btn-info btn-sm mr-1 ml-1 mt-2 mb-2">
+                  Clear
+                </button>
+                <div *ngIf="error" style="color: red;font-weight: bold;">{{error}}</div>
+              </div>
+            </form>
+  
+  
+          </div>
+  
+      

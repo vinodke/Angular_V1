@@ -1,0 +1,37 @@
+<div class="card-header">
+  <h3 class="card-title">Audit Master</h3>
+</div>
+<div style="height: auto;">
+    <div class="wrapper" style="height: auto; min-height: 100%;">
+      <div class="content-wrapper">
+        <div class="content">
+          <button (click)="OnRefreshCick();" class="btn btn-info btn-sm mr-1 ml-1 mt-2 mb-2">
+            Refresh
+          </button>
+          <button (click)="btnNewClick()" [hidden]="!isCreateAllowed" class="btn btn-info btn-sm mr-1 ml-1 mt-2 mb-2">
+            New
+          </button>
+          <button (click)="OnEditClick()" [hidden]="isRowUnSelected || !isEditAllowed" [disabled]="released" class="btn btn-info btn-sm mr-1 ml-1 mt-2 mb-2">
+            Edit
+          </button>
+          <button (click)="OnViewClick()" [hidden]="isRowUnSelected || !isViewAllowed" class="btn btn-info btn-sm mr-1 ml-1 mt-2 mb-2">
+            View
+          </button>
+          <button (click)="OnDeleteClick()" [hidden]="isRowUnSelected || !isDeleteAllowed" class="btn btn-info btn-sm mr-1 ml-1 mt-2 mb-2">
+            Inactivate
+          </button>
+
+          <button (click)="OnReleaseClick()" [hidden]="isRowUnSelected || !isReleaseAllowed" [disabled]="released" class="btn btn-info btn-sm mr-1 ml-1 mt-2 mb-2">
+            Release
+          </button>
+          <button (click)="OnVerifyClick()" [hidden]="isRowUnSelected || !isVerifyAllowed" class="btn btn-info btn-sm mr-1 ml-1 mt-2 mb-2">
+            Verify
+          </button>
+
+        </div>
+  
+        
+      </div>
+    </div>
+  </div> 
+   <org-fat-grid [entity]="name"  (auditRowData)="getRowData($event)"></org-fat-grid>

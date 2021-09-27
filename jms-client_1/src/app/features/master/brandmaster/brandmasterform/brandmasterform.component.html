@@ -1,0 +1,74 @@
+<div style="height: auto;">
+    <div class="wrapper" style="height: auto; min-height: 100%;">
+      <div class="content-wrapper">
+        <section class="content" style="padding: 1%;">
+          <!-- left column -->
+          <!-- general form elements -->
+          <div class="col-md-12">
+          <div class="card card-info">
+            <div class="card-header">
+              <h3 class="card-title">Brand Master</h3>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+            <form [formGroup]="brandmasterform" class="form-horizontal">
+              
+                <div class="card-body col-sm-6">
+                  <div class="row form-group">
+                    <label class="col-sm-4 col-form-label" >Brand Code *</label>
+                    <div class="col-sm-6">
+                      <input type="text" formControlName="BrandCode" class="form-control" 
+                       [ngClass]="{ 'is-invalid': submitted && brandmasterFormControls.BrandCode.errors }"
+                      pattern="^[a-zA-Z0-9\s]+$" />
+                      <div *ngIf="submitted && brandmasterFormControls.BrandCode.errors" class="invalid-feedback">
+                                  <div *ngIf="brandmasterFormControls.BrandCode.errors.required">Brand Code is required</div>
+                                  <div *ngIf="brandmasterFormControls.BrandCode.errors.pattern && brandmasterFormControls.BrandCode.dirty && brandmasterFormControls.BrandCode.invalid">Special Characters are not allowed.</div>
+                              </div>
+                    </div>
+                  
+                  </div>
+  
+                  <div class="row form-group">
+                    <label class="col-sm-4 col-form-label" >Brand Name *</label>
+                    <div class="col-sm-6">
+                      <input type="text" formControlName="BrandName" class="form-control" 
+                       [ngClass]="{ 'is-invalid': submitted && brandmasterFormControls.BrandName.errors }"
+                      pattern="^[a-zA-Z0-9\s]+$"/>
+                      <div *ngIf="submitted && brandmasterFormControls.BrandName.errors" class="invalid-feedback">
+                                      <div *ngIf="brandmasterFormControls.BrandName.errors.required">Brand Name is required</div>
+                                      <div *ngIf="brandmasterFormControls.BrandName.errors.pattern && brandmasterFormControls.BrandName.dirty && brandmasterFormControls.BrandName.invalid">Special Characters are not allowed.</div>
+                                  </div>
+                    </div>
+                  </div>
+  
+                </div>
+  
+                <!-- /.card-body -->
+          
+              <!-- /.row -->
+  
+              <div class="card-footer" style="align-content: center;">
+                <button type="button" (click)="SaveBrandMaster()" [disabled]="loading || isbtnSaveDisabled"
+                  class="btn btn-success btn-sm mr-1 ml-1 mt-2 mb-2">
+                  <!-- <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1 mb-1"></span> -->
+                  Save
+                </button>
+                <button type="button" (click)="ShowGrid()" class="btn btn-primary btn-sm mr-1 ml-1 mt-2 mb-2">
+                  Back
+                </button>
+                <button type="button" (click)=ClearContents() [disabled]="isbtnClearDisabled" class="btn btn-info btn-sm mr-1 ml-1 mt-2 mb-2">
+                  Clear
+                </button>
+                <div *ngIf="error" style="color: red;font-weight: bold;">{{error}}</div>
+              </div>
+            </form>
+  
+  
+          </div>
+  
+        </div>
+  
+        </section>
+      </div>
+    </div>
+  </div>

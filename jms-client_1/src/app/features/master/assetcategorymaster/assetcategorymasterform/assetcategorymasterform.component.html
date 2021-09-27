@@ -1,0 +1,117 @@
+<div style="height: auto;">
+    <div class="wrapper" style="height: auto; min-height: 100%;">
+      <div class="content-wrapper">
+        <section class="content" style="padding: 1%;">
+          <!-- left column -->
+          <!-- general form elements -->
+          <div class="col-md-12">
+          <div class="card card-info">
+            <div class="card-header">
+              <h3 class="card-title">Aasset Category Master</h3>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+            <form [formGroup]="assetCategoryMasterForm" class="form-horizontal">
+              
+                <div class="card-body col-sm-8">
+                  <div class="row form-group">
+                    <label class="col-sm-4 col-form-label" >Category Code *</label>
+                    <div class="col-sm-6">
+                      <input type="text" formControlName="AssetCategoryCode" class="form-control" 
+                       [ngClass]="{ 'is-invalid': submitted && assetCategoryMasterFormControls.AssetCategoryCode.errors }"
+                      pattern="^[a-zA-Z0-9\s]+$" />
+                      <div *ngIf="submitted && assetCategoryMasterFormControls.AssetCategoryCode.errors" class="invalid-feedback">
+                                  <div *ngIf="assetCategoryMasterFormControls.AssetCategoryCode.errors.required">Category Code is required</div>
+                                  <div *ngIf="assetCategoryMasterFormControls.AssetCategoryCode.errors.pattern && assetCategoryMasterFormControls.AssetCategoryCode.dirty && assetCategoryMasterFormControls.AssetCategoryCode.invalid">Special Characters are not allowed.</div>
+                              </div>
+                    </div>
+                  
+                  </div>
+  
+                  <div class="row form-group">
+                    <label class="col-sm-4 col-form-label" >Category Name *</label>
+                    <div class="col-sm-6">
+                      <input type="text" formControlName="AssetCategoryName" class="form-control" 
+                       [ngClass]="{ 'is-invalid': submitted && assetCategoryMasterFormControls.AssetCategoryName.errors }"
+                      pattern="^[a-zA-Z0-9\s]+$"/>
+                      <div *ngIf="submitted && assetCategoryMasterFormControls.AssetCategoryName.errors" class="invalid-feedback">
+                                      <div *ngIf="assetCategoryMasterFormControls.AssetCategoryName.errors.required">Category Name is required</div>
+                                      <div *ngIf="assetCategoryMasterFormControls.AssetCategoryName.errors.pattern && assetCategoryMasterFormControls.AssetCategoryName.dirty && assetCategoryMasterFormControls.AssetCategoryName.invalid">Special Characters are not allowed.</div>
+                                  </div>
+                    </div>
+                  </div>
+                  
+                  <div class="row form-group">
+                    <label class="col-sm-4 col-form-label" >Category Short Code</label>
+                    <div class="col-sm-6">
+                      <input type="text" formControlName="AssetCategoryShortCode" class="form-control" maxlength="3"
+                       [ngClass]="{ 'is-invalid': submitted && assetCategoryMasterFormControls.AssetCategoryShortCode.errors }"
+                      pattern="^[a-zA-Z0-9\s]+$"/>
+                      <div *ngIf="submitted && assetCategoryMasterFormControls.AssetCategoryShortCode.errors" class="invalid-feedback">
+                                      <div *ngIf="assetCategoryMasterFormControls.AssetCategoryShortCode.errors.pattern && assetCategoryMasterFormControls.AssetCategoryShortCode.dirty && assetCategoryMasterFormControls.AssetCategoryShortCode.invalid">Special Characters are not allowed.</div>
+                                  </div>
+                    </div>
+                  </div>
+
+                  <div class="row form-group">
+                    <label class="col-sm-4 col-form-label" >Depreciation Period *</label>
+                    <div class="col-sm-6">
+                        <select type="text" formControlName="DepreciationPeriod"
+                            class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && assetCategoryMasterFormControls.DepreciationPeriod.errors }">
+                            <option value="Year">Year</option>
+                            <option value="Month">Month</option>
+                            <option value="Day">Day</option>
+                        </select>
+                        <div *ngIf="submitted && assetCategoryMasterFormControls.DepreciationPeriod.errors"
+                            class="invalid-feedback">
+                            <div
+                                *ngIf="submitted && assetCategoryMasterFormControls.DepreciationPeriod.errors.required">
+                                Depreciation Period is required</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                  <label class="col-sm-4 col-form-label" >Depreciation Percentage *</label>
+                  <div class="col-sm-6">
+                    <input type="text" formControlName="DepreciationPercentage" class="form-control"
+                     [ngClass]="{ 'is-invalid': submitted && assetCategoryMasterFormControls.DepreciationPercentage.errors }"
+                    />
+                    <div *ngIf="submitted && assetCategoryMasterFormControls.DepreciationPercentage.errors" class="invalid-feedback">
+                                    <div *ngIf="assetCategoryMasterFormControls.DepreciationPercentage.errors.required">Depreciation Percentage is required</div>
+                                    
+                                </div>
+                  </div>
+                </div>
+                </div>
+  
+                <!-- /.card-body -->
+          
+              <!-- /.row -->
+  
+              <div class="card-footer" style="align-content: center;">
+                <button type="button" (click)="SaveAassetCategoryMaster()" [disabled]="loading || isbtnSaveDisabled"
+                  class="btn btn-success btn-sm mr-1 ml-1 mt-2 mb-2">
+                  <!-- <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1 mb-1"></span> -->
+                  Save
+                </button>
+                <button type="button" (click)="ShowGrid()" class="btn btn-primary btn-sm mr-1 ml-1 mt-2 mb-2">
+                  Back
+                </button>
+                <button type="button" (click)=ClearContents() [disabled]="isbtnClearDisabled" class="btn btn-info btn-sm mr-1 ml-1 mt-2 mb-2">
+                  Clear
+                </button>
+                <div *ngIf="error" style="color: red;font-weight: bold;">{{error}}</div>
+              </div>
+            </form>
+  
+  
+          </div>
+  
+        </div>
+  
+        </section>
+      </div>
+    </div>
+  </div>

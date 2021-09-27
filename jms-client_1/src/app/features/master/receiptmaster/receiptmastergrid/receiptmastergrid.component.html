@@ -1,0 +1,26 @@
+<div style="height: auto;">
+    <div class="wrapper" style="height: auto; min-height: 100%;">
+      <div class="content-wrapper">
+        <div class="content">
+          <button (click)="OnRefreshCick();" class="btn btn-info btn-sm mr-1 ml-1 mt-2 mb-2">
+            Refresh
+          </button>
+          <button (click)="btnNewClick()" [hidden]="!isCreateAllowed" class="btn btn-info btn-sm mr-1 ml-1 mt-2 mb-2">
+            New
+          </button>
+          <button (click)="OnEditClick()" [hidden]="isRowUnSelected || !isEditAllowed" class="btn btn-info btn-sm mr-1 ml-1 mt-2 mb-2" [disabled]="isReceiptApproved" >
+            Edit
+          </button>
+          <button (click)="OnViewClick()" [hidden]="isRowUnSelected || !isViewAllowed"  class="btn btn-info btn-sm mr-1 ml-1 mt-2 mb-2" [disabled]="isReceiptApproved" >
+            View
+          </button>
+          <button (click)="OnApproveClick()" [hidden]="isRowUnSelected || !isEditAllowed"  class="btn btn-info btn-sm mr-1 ml-1 mt-2 mb-2" [disabled]="isReceiptApproved" >
+            Approve
+          </button>
+          <org-fat-grid [entity]="name"></org-fat-grid>
+        </div>
+  
+        
+      </div>
+    </div>
+  </div>

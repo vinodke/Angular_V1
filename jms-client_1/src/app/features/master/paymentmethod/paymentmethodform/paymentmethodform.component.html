@@ -1,0 +1,91 @@
+
+          <div class="card card-info">
+            <div class="card-header">
+              <h3 class="card-title">Payment Method</h3>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+            <form [formGroup]="paymentMethodForm" class="form-horizontal">
+              
+                <div class="card-body col-sm-8">
+
+                    <div class="row form-group">
+                        <label class="col-sm-4 col-form-label" >Store/Warehouse *</label>
+                        <div class="col-sm-6">
+                            <select class="form-control select2bs4 select2-hidden-accessible" style="height: 10px !important;width: 100%;"  formControlName="WarehouseSelCode"
+                            [ngClass]="{ 'is-invalid': submitted && paymentMethodFormControls.WarehouseSelCode.errors }" name="WarehouseSelCode" required>
+                            <option selected="selected"></option>
+                            <option *ngFor="let x of warehouses" value="{{ x.id }}">
+                                {{ x.warehouseCode }} - {{ x.warehouseName }}
+                            </option>
+                        </select>
+                        
+                            <div *ngIf="paymentMethodFormControls.WarehouseSelCode.errors" class="invalid-feedback">
+                                <div *ngIf="submitted && paymentMethodFormControls.WarehouseSelCode.errors.required">Warehouse Code is required</div>
+                            </div>
+                        </div>
+                    </div>
+
+                  <div class="row form-group">
+                    <label class="col-sm-4 col-form-label" for="inputEmail3">Payment Method Name *</label>
+                    <div class="col-sm-6">
+                      <input type="text" formControlName="PaymentMethodName" class="form-control" maxlength="32"
+                       [ngClass]="{ 'is-invalid': submitted && paymentMethodFormControls.PaymentMethodName.errors }"
+                       pattern="^[a-zA-Z0-9\s]+$" />
+                      <div *ngIf="submitted && paymentMethodFormControls.PaymentMethodName.errors" class="invalid-feedback">
+                        <div
+                        *ngIf="submitted && paymentMethodFormControls.PaymentMethodName.errors.required">
+                        Payment Method Name is required</div>
+                                  <div *ngIf="paymentMethodFormControls.PaymentMethodName.errors.pattern && paymentMethodFormControls.PaymentMethodName.dirty && paymentMethodFormControls.PaymentMethodName.invalid">Special Characters are not allowed.</div>
+                              </div>
+                    </div>
+                  
+                  </div>
+
+                  <div class="row form-group">
+                    <label class="col-sm-4 col-form-label" for="inputEmail3">Reference Number</label>
+                    <div class="col-sm-6">
+                      <input type="text" formControlName="ReferenceNumber" class="form-control" maxlength="32"
+                       [ngClass]="{ 'is-invalid': submitted && paymentMethodFormControls.ReferenceNumber.errors }"
+                       pattern="^[a-zA-Z0-9\s]+$" />
+                      <div *ngIf="submitted && paymentMethodFormControls.ReferenceNumber.errors" class="invalid-feedback">
+                                  <div *ngIf="paymentMethodFormControls.ReferenceNumber.errors.pattern && paymentMethodFormControls.ReferenceNumber.dirty && paymentMethodFormControls.ReferenceNumber.invalid"> Characters are not allowed.</div>
+                              </div>
+                    </div>
+                  
+                  </div>
+                  <div class="row form-group">
+                    <label class="col-sm-4 col-form-label" for="inputEmail3">Reference URL</label>
+                    <div class="col-sm-6">
+                      <input type="text" formControlName="ReferenceURL" class="form-control" 
+                       />
+                    </div>
+                  
+                  </div>
+                  
+                </div>
+  
+                <!-- /.card-body -->
+          
+              <!-- /.row -->
+  
+              <div class="card-footer" style="align-content: center;">
+                <button type="button" (click)="SavePaymentMethod()" [disabled]="loading || isbtnSaveDisabled"
+                  class="btn btn-success btn-sm mr-1 ml-1 mt-2 mb-2">
+                  <!-- <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1 mb-1"></span> -->
+                  Save
+                </button>
+                <button type="button" (click)="ShowGrid()" [hidden]="routetype" class="btn btn-primary btn-sm mr-1 ml-1 mt-2 mb-2">
+                  Back
+                </button>
+                <button type="button" (click)=ClearContents() [disabled]="isbtnClearDisabled" class="btn btn-info btn-sm mr-1 ml-1 mt-2 mb-2">
+                  Clear
+                </button>
+                <div *ngIf="error" style="color: red;font-weight: bold;">{{error}}</div>
+              </div>
+            </form>
+  
+  
+          </div>
+  
+       

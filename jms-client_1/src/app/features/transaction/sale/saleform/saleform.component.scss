@@ -1,0 +1,36 @@
+.popover{
+    top:auto !important;
+    left: auto !important;
+    max-width: 100%  !important;
+}
+
+.nav-tabs .nav-link{
+    padding: 1.5rem;
+}
+
+.dropdown-item:hover
+{
+    background: green;
+}
+
+.btn-tool{
+    color: #babfc7 !important;
+}
+// .collapse.show i::before
+// {
+// 	transform: rotate(180deg);
+// }
+
+// button[aria-expanded="true"]{
+//     transform: rotate(180deg);
+//   }
+
+.card-title
+{
+    cursor: pointer;
+}
+
+.hoverlabel
+{
+    cursor: pointer;
+}

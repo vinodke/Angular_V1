@@ -1,0 +1,156 @@
+<div class="card card-info" [hidden]="isVerifyEvent">
+  <div class="card-header">
+    <h3 class="card-title">Audit Master</h3>
+  </div>
+  <!-- /.card-header -->
+  <!-- form start -->
+  <form [formGroup]="auditMasterForm" class="form-horizontal">
+
+    <div class="card-body col-md-12">
+      <div class="row">
+        <div class="col">
+          <div class="row form-group">
+            <label class="col-sm-4 col-form-label">
+              Store/Warehouse
+              *
+            </label>
+            <div class="col-sm-6">
+              <select class="form-control" style="width: 100%;" (change)='wareHouse($event)'
+                      formControlName="warehouseID"
+                      [ngClass]="{ 'is-invalid': submitted && auditMasterFormControls.warehouseID.errors }"
+                      name="WarehouseCode" required>
+                <option selected="selected"></option>
+                <option *ngFor="let x of warehouseCodes" [value]="x.id">
+                  {{ x.warehouseCode }} - {{ x.warehouseName }}
+                </option>
+              </select>
+              <div *ngIf="auditMasterFormControls.warehouseID.errors" class="invalid-feedback">
+                <div *ngIf="submitted && auditMasterFormControls.warehouseID.errors.required">
+                  Warehouse Code is required
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="row form-group">
+            <label class="col-sm-4 col-form-label">
+              Date
+              *
+            </label>
+            <div class="col-sm-6">
+              <input [ngClass]="{ 'is-invalid': submitted && auditMasterFormControls.toBeAuditedOn.errors }"
+                     type="date" class="form-control" formControlName="toBeAuditedOn">
+              <div *ngIf="auditMasterFormControls.toBeAuditedOn.errors" class="invalid-feedback">
+                <div *ngIf="submitted && auditMasterFormControls.toBeAuditedOn.errors.required">
+                  Date is required
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="row form-group">
+            <label class="col-sm-4 col-form-label">
+              Audit Candidate
+              *
+            </label>
+            <div class="col-sm-6">
+
+              <ng-select *ngIf="editMode" [multiple]="true" formControlName="auditCandidateList">
+                <ng-option *ngFor="let x of arra_ids" [value]="x.candidateLocationID">
+                  {{ x.candidateLocationCode }} - {{ x.candidateLocationName }}
+                </ng-option>
+              </ng-select>
+              <ng-select *ngIf="!editMode" [multiple]="true" formControlName="auditCandidateList">
+                <ng-option *ngFor="let x of auditCandidateList" [value]="x.candidateLocationID">
+                  {{ x.candidateLocationCode }} - {{ x.candidateLocationName }}
+                </ng-option>
+              </ng-select>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="row form-group">
+            <label class="col-sm-4 col-form-label">
+              Remark
+              *
+            </label>
+            <div class="col-sm-6">
+              <input type="text" formControlName="remark" class="form-control"
+                     [ngClass]="{ 'is-invalid': submitted && auditMasterFormControls.remark.errors }"
+                     pattern="^[a-zA-Z0-9\s]+$" />
+              <div *ngIf="auditMasterFormControls.remark.errors" class="invalid-feedback">
+                <div *ngIf="submitted && auditMasterFormControls.remark.errors.required">
+                  Remark is required
+                </div>
+                <div *ngIf="auditMasterFormControls.remark.errors.pattern && auditMasterFormControls.remark.dirty && auditMasterFormControls.remark.invalid">
+                  Special Characters are not allowed.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+    <div class="card-footer" style="align-content: center;">
+      <button type="button" (click)="SaveAuditMaster()" [disabled]="loading || isbtnSaveDisabled"
+              class="btn btn-success btn-sm">
+        <i class="fa fa-save" aria-hidden="true"></i> Save
+      </button>
+      <button type="button" (click)="ShowGrid()" class="btn btn-danger btn-sm">
+        <i class="fa fa-long-arrow-alt-left" aria-hidden="true"></i> Back
+      </button>
+      <button type="button" (click)="ClearContents()" [disabled]=" isbtnClearDisabled "
+              class="btn btn-primary btn-sm">
+        <i class="fa fa-broom " aria-hidden="true"></i> Clear
+      </button>
+      <div *ngIf="error " style="color: red;font-weight: bold; ">{{error}}</div>
+    </div>
+  </form>
+</div>
+
+<div class="card card-info" [hidden]="!isVerifyEvent">
+  <div class="card-header">
+    <h3 class="card-title">Audit Verify</h3>
+  </div>
+  <!-- /.card-header -->
+  <!-- form start -->
+  <form [formGroup]="auditVerifyForm"  class="form-horizontal">
+    <div style="align-content: center;margin-left: 15px;margin-top: 12px;">
+      <div class="row">
+        <div class="col">
+
+          <div class="row form-group">
+            <label class="col-sm-4 col-form-label">
+              Locations
+            </label>
+            <div class="col-sm-6">
+
+
+              <ng-select [multiple]="true" formControlName="Locations">
+                <ng-option *ngFor="let x of auditCandidateList" [value]="x.candidateLocationID">
+                  {{ x.candidateLocationCode }} - {{ x.candidateLocationName }}
+                </ng-option>
+              </ng-select>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="row">
+
+      </div>
+      <button type="button" (click)="AuditDiscrepancy()" [disabled]="isRowUnSelected" class="btn btn-info btn-sm mr-1 ml-1 mt-2 mb-2">
+        Discrepancy
+      </button>
+
+      <div *ngIf="error" style="color: red;font-weight: bold;">{{error}}</div>
+    </div>
+  </form>
+</div>
+<org-fat-grid [entity]="name" (auditRowData)="getRowData($event)"></org-fat-grid>

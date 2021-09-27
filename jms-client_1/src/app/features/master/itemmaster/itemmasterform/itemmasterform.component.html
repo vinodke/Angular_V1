@@ -1,0 +1,523 @@
+
+
+                    <div class="card card-info">
+                        <div class="card-header">
+                            <h3 class="card-title">Item Master</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <!-- form start -->
+                        <form [formGroup]="itemmasterform" class="form-horizontal">
+
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col">
+                                <div class="row form-group">
+                                    <label class="col-sm-6 col-form-label" >Item Code
+                                        *</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" formControlName="ItemCode" class="form-control" maxlength="50"
+                                            [ngClass]="{ 'is-invalid': submitted && itemmasterformControls.ItemCode.errors }"
+                                            pattern="^[a-zA-Z0-9\s]+$" />
+                                        <div *ngIf="itemmasterformControls.ItemCode.errors"
+                                            class="invalid-feedback">
+                                            <div
+                                                *ngIf="submitted && itemmasterformControls.ItemCode.errors.required">
+                                                Item Code is required</div>
+                                            <div
+                                                *ngIf="submitted && itemmasterformControls.ItemCode.errors.pattern && itemmasterformControls.ItemCode.dirty && itemmasterformControls.ItemCode.invalid">
+                                                Special Characters are not allowed.</div>
+                                        </div>
+                                    </div>
+                                </div>  
+
+                                <div class="row form-group">
+                                    <label class="col-sm-6 col-form-label" >Item Name
+                                        *</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" formControlName="ItemName" class="form-control" maxlength="100"
+                                            [ngClass]="{ 'is-invalid': submitted && itemmasterformControls.ItemName.errors }"
+                                            pattern="^[a-zA-Z0-9\s]+$" />
+                                        <div *ngIf="itemmasterformControls.ItemName.errors"
+                                            class="invalid-feedback">
+                                            <div
+                                                *ngIf="submitted && itemmasterformControls.ItemName.errors.required">
+                                                Product Name is required</div>
+                                            <div
+                                                *ngIf="submitted && itemmasterformControls.ItemName.errors.pattern && itemmasterformControls.ItemName.dirty && itemmasterformControls.ItemName.invalid">
+                                                Special Characters are not allowed.</div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="row form-group">
+                                    <label class="col-sm-6 col-form-label" >Item Desc</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" formControlName="ItemDesc" class="form-control" maxlength="200"
+                                            [ngClass]="{ 'is-invalid': submitted && itemmasterformControls.ItemDesc.errors }"/>
+                                    </div>
+
+                                </div>
+
+                                <div class="row form-group">
+                                    <label class="col-sm-6 col-form-label" name="inputEmail3">Category Code
+                                        </label>
+                                    <div class="col-sm-6">
+                                        <select class="form-control select2bs4 select2-hidden-accessible"
+                                            style="width: 100%;" formControlName="CategorySelCode"
+                                            name="CategorySelCode">
+                                            <option selected="selected"></option>
+                                            <option *ngFor="let x of categoryCodes" value="{{ x.id }}">
+                                                {{ x.categoryCode }} - {{ x.categoryName }}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="row form-group">
+                                    <label class="col-sm-6 col-form-label" name="inputEmail3">Sub Category Code
+                                        *</label>
+                                    <div class="col-sm-6">
+                                        <select class="form-control select2bs4 select2-hidden-accessible"
+                                            style="width: 100%;" formControlName="SubCategorySelCode"
+                                            [ngClass]="{ 'is-invalid': submitted && itemmasterformControls.SubCategorySelCode.errors }"
+                                            name="SubCategorySelCode">
+                                            <option selected="selected"></option>
+                                            <option *ngFor="let x of SubCategoryCodes" value="{{ x.id }}">
+                                                {{ x.subCategoryCode }} - {{ x.subCategoryName }}
+                                            </option>
+                                        </select>
+
+                                        <div *ngIf="submitted && itemmasterformControls.SubCategorySelCode.errors"
+                                            class="invalid-feedback">
+                                            <div
+                                                *ngIf="submitted && itemmasterformControls.SubCategorySelCode.errors.required">
+                                                Category Code is required</div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row form-group ">
+                                    <label class="col-sm-6 col-form-label" >UOM
+                                        Code *</label>
+                                    <div class="col-sm-6">
+                                        <select class="form-control select2bs4 select2-hidden-accessible"
+                                        [ngClass]="{ 'is-invalid': submitted && itemmasterformControls.UOMSelCode.errors }"
+                                            style="width: 100%;" formControlName="UOMSelCode" name="UOMSelCode">
+                                            <option selected="selected"></option>
+                                            <option *ngFor="let x of uomcodes" value="{{ x.id }}">
+                                                {{ x.uomCode }} - {{ x.uomName }}
+                                            </option>
+                                        </select>
+                                        <div *ngIf="submitted && itemmasterformControls.UOMSelCode.errors"
+                                            class="invalid-feedback">
+                                            <div
+                                                *ngIf="submitted && itemmasterformControls.UOMSelCode.errors.required">
+                                                UOM Code is required</div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row form-group ">
+                                    <label class="col-sm-6 col-form-label" >Karat
+                                        Code</label>
+                                    <div class="col-sm-6">
+                                        <select class="form-control select2bs4 select2-hidden-accessible"
+                                            style="width: 100%;" formControlName="KaratSelCode" name="KaratSelCode">
+                                            <option selected="selected"></option>
+                                            <option *ngFor="let x of karatcodes" value="{{ x.id }}">
+                                                {{ x.karatCode }} - {{ x.karatName }}
+                                            </option>
+                                        </select>
+                                       
+                                    </div>
+                                </div>
+                                <div class="row form-group ">
+                                    <label class="col-sm-6 col-form-label" >Color
+                                        Code</label>
+                                    <div class="col-sm-6">
+                                        <select class="form-control select2bs4 select2-hidden-accessible"
+                                            style="width: 100%;" formControlName="ColorSelCode" name="ColorSelCode">
+                                            <option selected="selected"></option>
+                                            <option *ngFor="let x of colorcodes" value="{{ x.id }}">
+                                                {{ x.colorCode }} - {{ x.colorName }}
+                                            </option>
+                                        </select>
+                                       
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="row form-group">
+                                    <label class="col-sm-6 col-form-label" > Gender*</label>
+                                    <div class="col-sm-6">
+                                        <select  formControlName="Gender"
+                                        name="Gender"
+                                            class="form-control"
+                                            [ngClass]="{ 'is-invalid': submitted && itemmasterformControls.Gender.errors }">
+                                            <option value="Men">Men</option>
+                                            <option value="Woman">Woman</option>
+                                            <option value="Unisex">Unisex</option>
+                                        </select>
+                                        <div *ngIf="submitted && itemmasterformControls.Gender.errors"
+                                            class="invalid-feedback">
+                                            <div
+                                                *ngIf="submitted && itemmasterformControls.Gender.errors.required">
+                                                Gender is required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row form-group ">
+                                    <label class="col-sm-6 col-form-label" >Item Collection Name
+                                        </label>
+                                    <div class="col-sm-6">
+                                        <select class="form-control select2bs4 select2-hidden-accessible"
+                                            style="width: 100%;" formControlName="ItemCollectionSelCode" name="ItemCollectionSelCode">
+                                            <option selected="selected"></option>
+                                            <option *ngFor="let x of itemcollections" value="{{ x.id }}">
+                                                {{ x.itemCollectionCode }} - {{ x.itemCollectionName }}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row form-group ">
+                                    <label class="col-sm-6 col-form-label" >Item Family Name
+                                        </label>
+                                    <div class="col-sm-6">
+                                        <select class="form-control select2bs4 select2-hidden-accessible"
+                                            style="width: 100%;" formControlName="ItemFamilySelCode" name="ItemFamilySelCode">
+                                            <option selected="selected"></option>
+                                            <option *ngFor="let x of itemfamily" value="{{ x.id }}">
+                                                {{ x.itemFamilyCode }} - {{ x.itemFamilyName }}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row form-group ">
+                                    <label class="col-sm-6 col-form-label" >Item Group Name
+                                        </label>
+                                    <div class="col-sm-6">
+                                        <select class="form-control select2bs4 select2-hidden-accessible"
+                                            style="width: 100%;" formControlName="ItemGroupSelCode" name="ItemGroupSelCode">
+                                            <option selected="selected"></option>
+                                            <option *ngFor="let x of itemgroup" value="{{ x.id }}">
+                                                {{ x.itemGroupCode }} - {{ x.itemGroupName }}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row form-group ">
+                                    <label class="col-sm-6 col-form-label" >Item Brand Name
+                                        </label>
+                                    <div class="col-sm-6">
+                                        <select class="form-control select2bs4 select2-hidden-accessible"
+                                            style="width: 100%;" formControlName="ItemBrandSelCode" name="ItemBrandSelCode">
+                                            <option selected="selected"></option>
+                                            <option *ngFor="let x of itembrand" value="{{ x.id }}">
+                                                {{ x.itemBrandCode }} - {{ x.itemBrandName }}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <label class="col-sm-6 col-form-label" >Labour Charge</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" formControlName="LabourCharge" class="form-control" pattern="[0-9]+([\.,][0-9]+)?"
+                                            [ngClass]="{ 'is-invalid': submitted && itemmasterformControls.LabourCharge.errors }"/>
+                                            <div *ngIf="itemmasterformControls.LabourCharge.errors"
+                                            class="invalid-feedback">
+                                            <div
+                                                *ngIf="submitted && itemmasterformControls.LabourCharge.errors.pattern && itemmasterformControls.LabourCharge.dirty && itemmasterformControls.LabourCharge.invalid">
+                                                 Characters are not allowed.</div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row form-group">
+                                    <label class="col-sm-6 col-form-label" >Making Charge Min%</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" formControlName="MakingChargeMin" class="form-control" pattern="[0-9]+([\.,][0-9]+)?"
+                                            [ngClass]="{ 'is-invalid': submitted && itemmasterformControls.MakingChargeMin.errors }"/>
+                                            <div *ngIf="itemmasterformControls.MakingChargeMin.errors"
+                                            class="invalid-feedback">
+                                            <div
+                                                *ngIf="submitted && itemmasterformControls.MakingChargeMin.errors.pattern && itemmasterformControls.MakingChargeMin.dirty && itemmasterformControls.MakingChargeMin.invalid">
+                                                 Characters are not allowed.</div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row form-group">
+                                    <label class="col-sm-6 col-form-label" >Making Charge Max%</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" formControlName="MakingChargeMax" class="form-control" pattern="[0-9]+([\.,][0-9]+)?"
+                                            [ngClass]="{ 'is-invalid': submitted && itemmasterformControls.MakingChargeMax.errors }"/>
+                                            <div *ngIf="itemmasterformControls.MakingChargeMax.errors"
+                                            class="invalid-feedback">
+                                            <div
+                                                *ngIf="submitted && itemmasterformControls.MakingChargeMax.errors.pattern && itemmasterformControls.MakingChargeMax.dirty && itemmasterformControls.MakingChargeMax.invalid">
+                                                 Characters are not allowed.</div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                             
+                            </div>
+                            <div class="col">
+                                <div class="row form-group">
+                                    <label class="col-sm-5 col-form-label" >MRP</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" formControlName="MRP" class="form-control"  pattern="[0-9]+([\.,][0-9]+)?"
+                                            [ngClass]="{ 'is-invalid': submitted && itemmasterformControls.MRP.errors }"/>
+                                            <div *ngIf="itemmasterformControls.MRP.errors"
+                                            class="invalid-feedback">
+                                            <div
+                                                *ngIf="submitted && itemmasterformControls.MRP.errors.pattern && itemmasterformControls.MRP.dirty && itemmasterformControls.MRP.invalid">
+                                                 Characters are not allowed.</div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row form-group">
+                                    <label class="col-sm-5 col-form-label" >Remarks</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" formControlName="Remarks" class="form-control" maxlength="150"
+                                            [ngClass]="{ 'is-invalid': submitted && itemmasterformControls.Remarks.errors }"/>
+                                    </div>
+
+                                </div>
+                                <div class="row form-group">
+                                    <label class="col-sm-5 col-form-label" >Emarlad Weight</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" formControlName="EmarladWeight" class="form-control" pattern="[0-9]+([\.,][0-9]+)?"
+                                            [ngClass]="{ 'is-invalid': submitted && itemmasterformControls.EmarladWeight.errors }"/>
+                                            <div *ngIf="itemmasterformControls.EmarladWeight.errors"
+                                            class="invalid-feedback">
+                                            <div
+                                                *ngIf="submitted && itemmasterformControls.EmarladWeight.errors.pattern && itemmasterformControls.EmarladWeight.dirty && itemmasterformControls.EmarladWeight.invalid">
+                                                 Characters are not allowed.</div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row form-group">
+                                    <label class="col-sm-5 col-form-label" >Gross Weight</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" formControlName="GrossWeight" class="form-control" pattern="[0-9]+([\.,][0-9]+)?"
+                                            [ngClass]="{ 'is-invalid': submitted && itemmasterformControls.GrossWeight.errors }"/>
+                                            <div *ngIf="itemmasterformControls.GrossWeight.errors"
+                                            class="invalid-feedback">
+                                            <div
+                                                *ngIf="submitted && itemmasterformControls.GrossWeight.errors.pattern && itemmasterformControls.GrossWeight.dirty && itemmasterformControls.GrossWeight.invalid">
+                                                 Characters are not allowed.</div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row form-group">
+                                    <label class="col-sm-5 col-form-label" >Stone Weight</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" formControlName="StoneWeight" class="form-control" pattern="[0-9]+([\.,][0-9]+)?"
+                                            [ngClass]="{ 'is-invalid': submitted && itemmasterformControls.StoneWeight.errors }"/>
+                                            <div *ngIf="itemmasterformControls.StoneWeight.errors"
+                                            class="invalid-feedback">
+                                            <div
+                                                *ngIf="submitted && itemmasterformControls.StoneWeight.errors.pattern && itemmasterformControls.StoneWeight.dirty && itemmasterformControls.StoneWeight.invalid">
+                                                 Characters are not allowed.</div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row form-group">
+                                    <label class="col-sm-5 col-form-label" >Item Required Qty</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" formControlName="ItemReqQty" class="form-control" pattern="[0-9]+([\.,][0-9]+)?"
+                                            [ngClass]="{ 'is-invalid': submitted && itemmasterformControls.ItemReqQty.errors }"/>
+                                            <div *ngIf="itemmasterformControls.ItemReqQty.errors"
+                                            class="invalid-feedback">
+                                            <div
+                                                *ngIf="submitted && itemmasterformControls.ItemReqQty.errors.pattern && itemmasterformControls.ItemReqQty.dirty && itemmasterformControls.ItemReqQty.invalid">
+                                                 Characters are not allowed.</div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            </div>
+
+                            <div class="card" [hidden]="viewMode" >
+                                <div class="card-header inner"  >
+                                    <h3 class="card-title">Upload Images</h3>
+
+                                  
+                                    <!-- /.card-tools -->
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body" id="ItemMasterImagesDiv" name="ItemMasterImagesDiv">
+                                        
+                                            <div class="row form-group">
+                                                <label class="col-sm-5 col-form-label" >Upload Images</label>
+                                                {{imageError}}
+                                                <div class="col-sm-6">
+                                                    <input formControlName="fileInputImage" title=" " type="file" ng2FileSelect
+                                                     accept=".png,.jpeg,.jpg" (change)="fileChangeEvent($event)" multiple /><br/>
+                                                    <br>
+                                                    <!--<div class="drop-zone">
+                                                     <div ng2FileDrop [uploader]="uploader" class="drop-zone">
+                                                       Drag and drop files to upload
+                                                    </div> 
+                                                    </div>-->
+                                                    <table>
+                                                      <thead>
+                                                      <tr>
+                                                        <th width="90%">
+                                                          Image
+                                                        </th>
+                                                        <th width="10%">
+                                                          Remove
+                                                        </th>
+                                                      </tr>
+                                                      </thead>
+                                                      <tbody>
+                                                      <tr *ngFor="let item of urls;let indexOfelement=index;">
+                                                        <th width="90%">
+                                                            <div class="img-space">
+                                                                    <img [src]="item" height="150" width="150" />
+                                                                    <br><br>
+                                                            </div>
+                                                        </th>
+                                                        <th class="text-center" width="10%">
+                                                          <i class="fas fa-delete" ></i>
+                                                          <button class="btn btn-navbar" (click)="removeImage(indexOfelement)" type="submit">
+                                                            <i class="fas fa-trash"></i>
+                                                          </button>
+                                                        </th>
+                                                      </tr>
+                                                      </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
+
+                            <div class="card card-secondary" [hidden]="!editMode" >
+                                <div class="card-header inner">
+                                    <h3 class="card-title">Gallery</h3>
+
+                                  
+                                    <!-- /.card-tools -->
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body">
+
+                                        <!-- <div class="row">
+                                          <div class="col-sm-2">
+                                            <a href="https://via.placeholder.com/1200/FFFFFF.png?text=1" data-toggle="lightbox" data-title="sample 1 - white" data-gallery="gallery">
+                                              <img src="https://via.placeholder.com/300/FFFFFF?text=1" class="img-fluid mb-2" alt="white sample">
+                                            </a>
+                                          </div>
+                                          <div class="col-sm-2">
+                                            <a href="https://via.placeholder.com/1200/000000.png?text=2" data-toggle="lightbox" data-title="sample 2 - black" data-gallery="gallery">
+                                              <img src="https://via.placeholder.com/300/000000?text=2" class="img-fluid mb-2" alt="black sample">
+                                            </a>
+                                          </div>
+                                          <div class="col-sm-2">
+                                            <a href="https://via.placeholder.com/1200/FF0000/FFFFFF.png?text=3" data-toggle="lightbox" data-title="sample 3 - red" data-gallery="gallery">
+                                              <img src="https://via.placeholder.com/300/FF0000/FFFFFF?text=3" class="img-fluid mb-2" alt="red sample">
+                                            </a>
+                                          </div>
+                                          <div class="col-sm-2">
+                                            <a href="https://via.placeholder.com/1200/FF0000/FFFFFF.png?text=4" data-toggle="lightbox" data-title="sample 4 - red" data-gallery="gallery">
+                                              <img src="https://via.placeholder.com/300/FF0000/FFFFFF?text=4" class="img-fluid mb-2" alt="red sample">
+                                            </a>
+                                          </div>
+                                          <div class="col-sm-2">
+                                            <a href="https://via.placeholder.com/1200/000000.png?text=5" data-toggle="lightbox" data-title="sample 5 - black" data-gallery="gallery">
+                                              <img src="https://via.placeholder.com/300/000000?text=5" class="img-fluid mb-2" alt="black sample">
+                                            </a>
+                                          </div>
+                                          <div class="col-sm-2">
+                                            <a href="https://via.placeholder.com/1200/FFFFFF.png?text=6" data-toggle="lightbox" data-title="sample 6 - white" data-gallery="gallery">
+                                              <img src="https://via.placeholder.com/300/FFFFFF?text=6" class="img-fluid mb-2" alt="white sample">
+                                            </a>
+                                          </div>
+                                          <div class="col-sm-2">
+                                            <a href="https://via.placeholder.com/1200/FFFFFF.png?text=7" data-toggle="lightbox" data-title="sample 7 - white" data-gallery="gallery">
+                                              <img src="https://via.placeholder.com/300/FFFFFF?text=7" class="img-fluid mb-2" alt="white sample">
+                                            </a>
+                                          </div>
+                                          <div class="col-sm-2">
+                                            <a href="https://via.placeholder.com/1200/000000.png?text=8" data-toggle="lightbox" data-title="sample 8 - black" data-gallery="gallery">
+                                              <img src="https://via.placeholder.com/300/000000?text=8" class="img-fluid mb-2" alt="black sample">
+                                            </a>
+                                          </div>
+                                          <div class="col-sm-2">
+                                            <a href="https://via.placeholder.com/1200/FF0000/FFFFFF.png?text=9" data-toggle="lightbox" data-title="sample 9 - red" data-gallery="gallery">
+                                              <img src="https://via.placeholder.com/300/FF0000/FFFFFF?text=9" class="img-fluid mb-2" alt="red sample">
+                                            </a>
+                                          </div>
+                                          <div class="col-sm-2">
+                                            <a href="https://via.placeholder.com/1200/FFFFFF.png?text=10" data-toggle="lightbox" data-title="sample 10 - white" data-gallery="gallery">
+                                              <img src="https://via.placeholder.com/300/FFFFFF?text=10" class="img-fluid mb-2" alt="white sample">
+                                            </a>
+                                          </div>
+                                          <div class="col-sm-2">
+                                            <a href="https://via.placeholder.com/1200/FFFFFF.png?text=11" data-toggle="lightbox" data-title="sample 11 - white" data-gallery="gallery">
+                                              <img src="https://via.placeholder.com/300/FFFFFF?text=11" class="img-fluid mb-2" alt="white sample">
+                                            </a>
+                                          </div>
+                                          <div class="col-sm-2">
+                                            <a href="https://via.placeholder.com/1200/000000.png?text=12" data-toggle="lightbox" data-title="sample 12 - black" data-gallery="gallery">
+                                              <img src="https://via.placeholder.com/300/000000?text=12" class="img-fluid mb-2" alt="black sample">
+                                            </a>
+                                          </div>
+                                        </div> -->
+
+                                    <!-- <div class="gallery-wrapper">
+                                        <ngx-gallery [options]="galleryOptions" [images]="galleryImages" class="ngx-gallery"></ngx-gallery>
+                                    </div> -->
+                                    <div class="grid">
+                                   <img *ngFor="let image of _albums; let i=index" [src]="image" alt="">
+                                    </div>
+                                  </div>
+                                <!-- <div class="card-body"  id="ItemMasterImageGalleryDiv" name="ItemMasterImageGalleryDiv">
+                                    <div class="row">
+                                        <div *ngFor="let image of _albums; let i=index">
+                                            <img [src]="image" (click)="open(i)" />
+                                          </div>
+                                    </div>
+                                </div> -->
+                                <!-- /.card-body -->
+                            </div>
+
+                            </div>
+
+                            <!-- /.card-body -->
+
+                            <!-- /.row -->
+
+                            <div class="card-footer" style="align-content: center;">
+                                <button type="button" (click)="SaveItemMaster()"
+                                    [disabled]="loading || isbtnSaveDisabled"
+                                    class="btn btn-success btn-sm mr-1 ml-1 mt-2 mb-2">
+                                    <!-- <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1 mb-1"></span> -->
+                                    Save
+                                </button>
+                                <button type="button" (click)="ShowGrid()" [hidden]="routetype"
+                                    class="btn btn-info btn-sm mr-1 ml-1 mt-2 mb-2">
+                                    Back
+                                </button>
+                                <button type="button" (click)=ClearContents() [disabled]="isbtnClearDisabled"
+                                    class="btn btn-info btn-sm mr-1 ml-1 mt-2 mb-2">
+                                    Clear
+                                </button>
+                                <div *ngIf="error" style="color: red;font-weight: bold;">{{error}}</div>
+                            </div>
+                        </form>
+
+
+                    </div>
+
+                

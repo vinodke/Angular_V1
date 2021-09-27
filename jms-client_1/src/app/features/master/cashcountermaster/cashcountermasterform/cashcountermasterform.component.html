@@ -1,0 +1,68 @@
+
+          <div class="card card-info">
+            <div class="card-header">
+              <h3 class="card-title">Cash Counter Master</h3>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+            <form [formGroup]="cashCounterMasterForm" class="form-horizontal">
+              
+                <div class="card-body col-sm-8">
+
+                    <div class="row form-group">
+                        <label class="col-sm-4 col-form-label" >Store/Warehouse *</label>
+                        <div class="col-sm-6">
+                            <select class="form-control select2bs4 select2-hidden-accessible" style="height: 10px !important;width: 100%;"  formControlName="warehouseSelCode"
+                            [ngClass]="{ 'is-invalid': submitted && cashCounterMasterFormControls.warehouseSelCode.errors }" name="warehouseSelCode" required>
+                            <option selected="selected"></option>
+                            <option *ngFor="let x of warehouses" value="{{ x.id }}">
+                                {{ x.warehouseCode }} - {{ x.warehouseName }}
+                            </option>
+                        </select>
+                        
+                            <div *ngIf="cashCounterMasterFormControls.warehouseSelCode.errors" class="invalid-feedback">
+                                <div *ngIf="submitted && cashCounterMasterFormControls.warehouseSelCode.errors.required">warehouse Code is required</div>
+                            </div>
+                        </div>
+                    </div>
+  
+                  <div class="row form-group">
+                    <label class="col-sm-4 col-form-label" for="inputEmail3">Cash Counter Name *</label>
+                    <div class="col-sm-6">
+                      <input type="text" formControlName="CashCounterName" class="form-control" maxlength="100"
+                       [ngClass]="{ 'is-invalid': submitted && cashCounterMasterFormControls.CashCounterName.errors }"
+                      pattern="^[a-zA-Z0-9\s]+$"/>
+                      <div *ngIf="submitted && cashCounterMasterFormControls.CashCounterName.errors" class="invalid-feedback">
+                                      <div *ngIf="cashCounterMasterFormControls.CashCounterName.errors.required">Cash Counter Name is required</div>
+                                      <div *ngIf="cashCounterMasterFormControls.CashCounterName.errors.pattern && cashCounterMasterFormControls.CashCounterName.dirty && cashCounterMasterFormControls.CashCounterName.invalid">Special Characters are not allowed.</div>
+                                  </div>
+                    </div>
+                  </div>
+             
+                  
+                </div>
+  
+                <!-- /.card-body -->
+          
+              <!-- /.row -->
+  
+              <div class="card-footer" style="align-content: center;">
+                <button type="button" (click)="SaveCashCounterMaster()" [disabled]="loading || isbtnSaveDisabled"
+                  class="btn btn-success btn-sm mr-1 ml-1 mt-2 mb-2">
+                  <!-- <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1 mb-1"></span> -->
+                  Save
+                </button>
+                <button type="button" (click)="ShowGrid()" class="btn btn-primary btn-sm mr-1 ml-1 mt-2 mb-2">
+                  Back
+                </button>
+                <button type="button" (click)=ClearContents() [disabled]="isbtnClearDisabled" class="btn btn-info btn-sm mr-1 ml-1 mt-2 mb-2">
+                  Clear
+                </button>
+                <div *ngIf="error" style="color: red;font-weight: bold;">{{error}}</div>
+              </div>
+            </form>
+  
+  
+          </div>
+  
+       

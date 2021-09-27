@@ -1,0 +1,155 @@
+
+                    <div class="card card-info">
+                        <div class="card-header">
+                            <h3 class="card-title">Customer Master</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <!-- form start -->
+                        <form [formGroup]="customerMasterForm" class="form-horizontal">
+
+                            <div class="card-body col-md-12">
+
+                                <div class="row">
+                                    <div class="col">
+                                <div class="row form-group">
+                                    <label class="col-sm-5 col-form-label" >Customer Code *</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" formControlName="CustomerCode" class="form-control"
+                                            [ngClass]="{ 'is-invalid': submitted && customerMasterFormControls.CustomerCode.errors }"
+                                            pattern="^[a-zA-Z0-9\s]+$" />
+                                        <div *ngIf="customerMasterFormControls.CustomerCode.errors"
+                                            class="invalid-feedback">
+                                            <div
+                                                *ngIf="submitted && customerMasterFormControls.CustomerCode.errors.required">
+                                                Customer Code is required</div>
+                                            <div
+                                                *ngIf="customerMasterFormControls.CustomerCode.errors.pattern && customerMasterFormControls.CustomerCode.dirty && customerMasterFormControls.CustomerCode.invalid">
+                                                Special Characters are not allowed.</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row form-group">
+                                    <label class="col-sm-5 col-form-label" >Customer Name *</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" formControlName="CustomerName" class="form-control"
+                                            [ngClass]="{ 'is-invalid': submitted && customerMasterFormControls.CustomerName.errors }"
+                                            pattern="^[a-zA-Z0-9\s]+$" />
+                                        <div *ngIf="customerMasterFormControls.CustomerName.errors"
+                                            class="invalid-feedback">
+                                            <div
+                                                *ngIf="submitted && customerMasterFormControls.CustomerName.errors.required">
+                                                Customer Name is required</div>
+                                            <div
+                                                *ngIf="customerMasterFormControls.CustomerName.errors.pattern && customerMasterFormControls.CustomerName.dirty && customerMasterFormControls.CustomerName.invalid">
+                                                Special Characters are not allowed.</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <label class="col-sm-5 col-form-label" >Address 1 *</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" formControlName="Address1" class="form-control"
+                                            [ngClass]="{ 'is-invalid': submitted && customerMasterFormControls.Address1.errors }"/>
+                                        <div *ngIf="customerMasterFormControls.Address1.errors"
+                                            class="invalid-feedback">
+                                            <div
+                                                *ngIf="submitted && customerMasterFormControls.Address1.errors.required">
+                                                Address 1 is required</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row form-group">
+                                    <label class="col-sm-5 col-form-label" >Address 2</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" formControlName="Address2" class="form-control"/>
+                                   </div>
+                                </div>
+
+                                <div class="row form-group">
+                                    <label class="col-sm-5 col-form-label" >City</label>
+                                    <div class="col-sm-6">
+                                        <input type="URL" formControlName="City" class="form-control" />
+                                        
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <label class="col-sm-5 col-form-label" >Country</label>
+                                    <div class="col-sm-6">
+                                        <input type="URL" formControlName="Country" class="form-control" />
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="row form-group">
+                                    <label class="col-sm-5 col-form-label" >Contact Number</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" formControlName="ContactNumber" class="form-control"
+                                            [ngClass]="{ 'is-invalid': submitted && customerMasterFormControls.ContactNumber.errors }"
+                                            pattern="[- +()0-9]+" />
+                                        <div *ngIf="customerMasterFormControls.ContactNumber.errors"
+                                            class="invalid-feedback">
+                                            <div
+                                                *ngIf="customerMasterFormControls.ContactNumber.errors.pattern && customerMasterFormControls.ContactNumber.dirty && customerMasterFormControls.ContactNumber.invalid">
+                                                Invalid Contact Number.</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row form-group">
+                                    <label class="col-sm-5 col-form-label" >Email</label>
+                                    <div class="col-sm-6">
+                                        <input type="email" formControlName="Email" class="form-control"
+                                            [ngClass]="{ 'is-invalid': submitted && customerMasterFormControls.Email.errors }"
+                                            pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" />
+                                        <div *ngIf="customerMasterFormControls.Email.errors"
+                                            class="invalid-feedback">
+                                            <div
+                                                *ngIf="customerMasterFormControls.Email.errors.pattern && customerMasterFormControls.Email.dirty && customerMasterFormControls.Email.invalid">
+                                                Invalid Email.</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                
+                               
+                                <div class="row form-group">
+                                    <label class="col-sm-5 col-form-label" >Vat Number</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" formControlName="VatNumber" class="form-control"/>
+                                        
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                            </div>
+
+                            <!-- /.card-body -->
+
+                            <!-- /.row -->
+
+                            <div class="card-footer" style="align-content: center;">
+                                <button type="button" (click)="SaveCustomerMaster()"
+                                    [disabled]="loading || isbtnSaveDisabled"
+                                    class="btn btn-success btn-sm mr-1 ml-1 mt-2 mb-2">
+                                    <!-- <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1 mb-1"></span> -->
+                                    Save
+                                </button>
+                                <button type="button" (click)="ShowGrid()" [hidden]="routetype"
+                                    class="btn btn-info btn-sm mr-1 ml-1 mt-2 mb-2">
+                                    Back
+                                </button>
+                                <button type="button" (click)=ClearContents() [disabled]="isbtnClearDisabled"
+                                    class="btn btn-info btn-sm mr-1 ml-1 mt-2 mb-2">
+                                    Clear
+                                </button>
+                                <div *ngIf="error" style="color: red;font-weight: bold;">{{error}}</div>
+                            </div>
+                        </form>
+
+
+                    </div>
+
+               

@@ -1,0 +1,114 @@
+
+          <div class="card card-info">
+            <div class="card-header">
+              <h3 class="card-title">Bank Master</h3>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+            <form [formGroup]="bankMasterForm" class="form-horizontal">
+              
+                <div class="card-body col-sm-8">
+                  <div class="row form-group">
+                    <label class="col-sm-4 col-form-label" for="inputEmail3">Bank Name *</label>
+                    <div class="col-sm-6">
+                      <input type="text" formControlName="BankName" class="form-control" maxlength="100"
+                       [ngClass]="{ 'is-invalid': submitted && bankMasterFormControls.BankName.errors }"
+                      pattern="^[a-zA-Z0-9\s]+$" />
+                      <div *ngIf="submitted && bankMasterFormControls.BankName.errors" class="invalid-feedback">
+                                  <div *ngIf="bankMasterFormControls.BankName.errors.required">Bank Name is required</div>
+                                  <div *ngIf="bankMasterFormControls.BankName.errors.pattern && bankMasterFormControls.BankName.dirty && bankMasterFormControls.BankName.invalid">Special Characters are not allowed.</div>
+                              </div>
+                    </div>
+                  
+                  </div>
+  
+                  <div class="row form-group">
+                    <label class="col-sm-4 col-form-label" for="inputEmail3">Account Number *</label>
+                    <div class="col-sm-6">
+                      <input type="text" formControlName="AccountNumber" class="form-control"  maxlength="100"
+                       [ngClass]="{ 'is-invalid': submitted && bankMasterFormControls.AccountNumber.errors }"
+                      pattern="^[a-zA-Z0-9\s]+$"/>
+                      <div *ngIf="submitted && bankMasterFormControls.AccountNumber.errors" class="invalid-feedback">
+                                      <div *ngIf="bankMasterFormControls.AccountNumber.errors.required">Account Number is required</div>
+                                      <div *ngIf="bankMasterFormControls.AccountNumber.errors.pattern && bankMasterFormControls.AccountNumber.dirty && bankMasterFormControls.AccountNumber.invalid">Special Characters are not allowed.</div>
+                                  </div>
+                    </div>
+                  </div>
+
+                  <div class="row form-group">
+                    <label class="col-sm-4 col-form-label" for="inputEmail3">Account Holder Name *</label>
+                    <div class="col-sm-6">
+                      <input type="tel" formControlName="AccountHolderName" class="form-control" maxlength="100"
+                       [ngClass]="{ 'is-invalid': submitted && bankMasterFormControls.AccountHolderName.errors }"
+                      pattern="^[a-zA-Z0-9\s]+$"/>
+                      <div *ngIf="submitted && bankMasterFormControls.AccountHolderName.errors" class="invalid-feedback">
+                                      <div *ngIf="bankMasterFormControls.AccountHolderName.errors.required">Account Holder Name is required</div>
+                                      <div *ngIf="bankMasterFormControls.AccountHolderName.errors.pattern && bankMasterFormControls.AccountHolderName.dirty && bankMasterFormControls.AccountHolderName.invalid">Special Characters are not allowed.</div>
+                                  </div>
+                    </div>
+                  </div>
+
+                  <div class="row form-group">
+                    <label class="col-sm-4 col-form-label" for="inputEmail3">Branch Name *</label>
+                    <div class="col-sm-6">
+                      <input type="email" formControlName="BranchName" class="form-control" maxlength="100"
+                       [ngClass]="{ 'is-invalid': submitted && bankMasterFormControls.BranchName.errors }"
+                      pattern="^[a-zA-Z0-9\s]+$"/>
+                      <div *ngIf="submitted && bankMasterFormControls.BranchName.errors" class="invalid-feedback">
+                                      <div *ngIf="bankMasterFormControls.BranchName.errors.required">Branch Name is required</div>
+                                      <div *ngIf="bankMasterFormControls.BranchName.errors.pattern && bankMasterFormControls.BranchName.dirty && bankMasterFormControls.BranchName.invalid">Special Characters are not allowed.</div>
+                                  </div>
+                    </div>
+                  </div>
+                  
+                  <div class="row form-group">
+                    <label class="col-sm-4 col-form-label" for="inputEmail3">Address1 *</label>
+                    <div class="col-sm-6">
+                      <input type="text" formControlName="Address1" class="form-control" maxlength="200"
+                       [ngClass]="{ 'is-invalid': submitted && bankMasterFormControls.Address1.errors }"
+                      />
+                      <div *ngIf="submitted && bankMasterFormControls.Address1.errors" class="invalid-feedback">
+                                      <div *ngIf="bankMasterFormControls.Address1.errors.required">Address1 is required</div>
+                                      <!-- <div *ngIf="bankMasterFormControls.Address1.errors.pattern && bankMasterFormControls.Address1.dirty && bankMasterFormControls.Address1.invalid">Special Characters are not allowed.</div> -->
+                                  </div>
+                    </div>
+                  </div>
+                  <div class="row form-group">
+                    <label class="col-sm-4 col-form-label" for="inputEmail3">Address2 </label>
+                    <div class="col-sm-6">
+                      <input type="text" formControlName="Address2" class="form-control" maxlength="200"
+                       [ngClass]="{ 'is-invalid': submitted && bankMasterFormControls.Address2.errors }"
+                      />
+                      <div *ngIf="submitted && bankMasterFormControls.Address2.errors" class="invalid-feedback">
+                                      <!-- <div *ngIf="bankMasterFormControls.Address2.errors.required">Address1 is required</div> -->
+                                      <!-- <div *ngIf="bankMasterFormControls.Address1.errors.pattern && bankMasterFormControls.Address1.dirty && bankMasterFormControls.Address1.invalid">Special Characters are not allowed.</div> -->
+                                  </div>
+                    </div>
+                  </div>
+                 
+                </div>
+  
+                <!-- /.card-body -->
+          
+              <!-- /.row -->
+  
+              <div class="card-footer" style="align-content: center;">
+                <button type="button" (click)="SaveBankMaster()" [disabled]="loading || isbtnSaveDisabled"
+                  class="btn btn-success btn-sm mr-1 ml-1 mt-2 mb-2">
+                  <!-- <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1 mb-1"></span> -->
+                  Save
+                </button>
+                <button type="button" (click)="ShowGrid()" class="btn btn-primary btn-sm mr-1 ml-1 mt-2 mb-2">
+                  Back
+                </button>
+                <button type="button" (click)=ClearContents() [disabled]="isbtnClearDisabled" class="btn btn-info btn-sm mr-1 ml-1 mt-2 mb-2">
+                  Clear
+                </button>
+                <div *ngIf="error" style="color: red;font-weight: bold;">{{error}}</div>
+              </div>
+            </form>
+  
+  
+          </div>
+  
+       

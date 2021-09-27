@@ -1,0 +1,176 @@
+<div style="height: auto;">
+    <div class="wrapper" style="height: auto; min-height: 100%;">
+        <div class="content-wrapper">
+            <section class="content" style="padding: 1%;">
+                <!-- left column -->
+                <!-- general form elements -->
+                <div class="col-md-12">
+                    <div class="card card-info">
+                        <div class="card-header">
+                            <h3 class="card-title">{{headerText}}</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <!-- form start -->
+                        <form [formGroup]="receiptEditForm" class="form-horizontal">
+                            <div style="align-content: center;margin-left: 15px;margin-top: 12px;">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="row form-group">
+                                            <label class="col-sm-4 col-form-label" >From
+                                                Date *</label>
+                                            <div class="col-sm-6">
+                                                <div class="input-group date" id="FromDate" 
+                                                    data-target-input="nearest">
+                                                    <input type="text" #FromDate class="form-control datetimepicker-input"
+                                                    [ngClass]="{ 'is-invalid': submitted && !FromDate.value }"
+                                                     name="FrmDate"
+                                                        data-target="#FromDate" />
+                                                    <div class="input-group-append"
+                                                        data-target="#FromDate"
+                                                        data-toggle="datetimepicker">
+                                                        <div class="input-group-text"><i
+                                                                class="fa fa-calendar"></i></div>
+                                                    </div>
+                                                    <div *ngIf="submitted && !FromDate.value" class="invalid-feedback">
+                                                        From Date is required
+                                                        </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row form-group">
+                                            <label class="col-sm-4 col-form-label" >Receipt
+                                                Type *</label>
+                                            <div class="col-sm-6">
+                                                <select  formControlName="ReceiptType"
+                                                name="ReceiptType"
+                                                    class="form-control"
+                                                    [ngClass]="{ 'is-invalid': submitted && receiptEditFormControls.ReceiptType.errors }">
+                                                    <option value="TransferOrder">Transfer Order</option>
+                                                    <option value="PurchaseOrder">Purchase Order</option>
+                                                    <option value="Invoice">Invoice</option>
+                                                </select>
+                                                <div *ngIf="submitted && receiptEditFormControls.ReceiptType.errors"
+                                                    class="invalid-feedback">
+                                                    <div
+                                                        *ngIf="submitted && receiptEditFormControls.ReceiptType.errors.required">
+                                                        Receipt Against is required</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+
+                                        <div class="row form-group">
+                                            <label class="col-sm-4 col-form-label" >To
+                                                Date *</label>
+                                            <div class="col-sm-6">
+                                                <div class="input-group date" id="ToDate" 
+                                                    data-target-input="nearest">
+                                                    <input type="text" #ToDate class="form-control datetimepicker-input"
+                                                    [ngClass]="{ 'is-invalid': submitted && !ToDate.value }"
+                                                     name="TDate"
+                                                        data-target="#ToDate" />
+                                                    <div class="input-group-append"
+                                                        data-target="#ToDate"
+                                                        data-toggle="datetimepicker">
+                                                        <div class="input-group-text"><i
+                                                                class="fa fa-calendar"></i></div>
+                                                    </div>
+                                                    <div *ngIf="submitted && !ToDate.value" class="invalid-feedback">
+                                                        To Date is required
+                                                        </div>
+                                                </div>
+    
+                                              
+                                            </div>
+                                        </div>
+
+                                        <div class="row form-group" [hidden]="isTransferOrder">
+                                            <label class="col-sm-4 col-form-label" >Supplier
+                                                Code </label>
+                                            <div class="col-sm-6">
+                                                <select
+                                                    class="form-control select2bs4 select2-hidden-accessible"
+                                                    style="width: 100%;" formControlName="supplierSelCode"
+                                                    name="supplierSelCode">
+                                                    <option selected="selected"></option>
+                                                    <option *ngFor="let x of suppCodes" value="{{ x.id }}">
+                                                        {{ x.supplierCode }} - {{ x.supplierName }}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row form-group" [hidden]="!isTransferOrder">
+                                            <label class="col-sm-4 col-form-label" >From Warehouse
+                                                 </label>
+                                            <div class="col-sm-6">
+                                                <select
+                                                    class="form-control select2bs4 select2-hidden-accessible"
+                                                    style="width: 100%;" formControlName="warehouseSelCode"
+                                                    name="warehouseSelCode">
+                                                    <option selected="selected"></option>
+                                                    <option *ngFor="let x of warehouseCodes" value="{{ x.id }}">
+                                                        {{ x.warehouseCode }} - {{ x.warehouseName }}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <!-- <div class="row form-group">
+                                            <label class="col-sm-4 col-form-label" >PO Number </label>
+                                            <div class="col-sm-6">
+                                                <input type="text" formControlName="PoNumber" class="form-control"
+                                                />
+                                            </div>
+                                        </div> -->
+                                    </div>
+                                    
+                                       
+                                </div>
+                                <div class="row">
+                                    
+                                </div>
+                                <button type="button" (click)=ViewContents() 
+                                class="btn btn-info btn-sm mr-1 ml-1 mt-2 mb-2">
+                                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1 mb-1"></span>
+                                View 
+                            </button>
+                                <button type="button" (click)=NewReceiptEntry() 
+                                    class="btn btn-info btn-sm mr-1 ml-1 mt-2 mb-2">
+                                    Back
+                                </button>
+                                <button type="button" (click)=ClearReceiptView() 
+                                    class="btn btn-info btn-sm mr-1 ml-1 mt-2 mb-2">
+                                    Clear
+                                </button>
+                                <button type="button"  [hidden]="isbtnGridClick || !isbtnforApproveClick" (click)="ViewEditScreen()"
+                                class="btn btn-info btn-sm mr-1 ml-1 mt-2 mb-2">
+                                Click to Edit Receipt
+                            </button>
+                            <button type="button"  [hidden]="isbtnGridClick || isbtnforApproveClick" (click)="ApproveEditScreen()"
+                            class="btn btn-info btn-sm mr-1 ml-1 mt-2 mb-2">
+                            Click to Approve Receipt
+                        </button>
+                           
+                                <div *ngIf="error" style="color: red;font-weight: bold;">{{error}}</div>
+                                
+                                <div class="row">
+                                    <ag-grid-angular #agGrid style="width: 76vw; height: 25vw;padding-left: 15px;" class="ag-theme-alpine"
+                                    [rowData]="receiptData" [columnDefs]="columnPOViewDefs" rowSelection="single"
+                                    cellSelection="none" animateRows="true" defaultColDef="defaultColDef" (rowClicked)="onPOViewRowClick($event)" 
+                                    suppressCellSelection="true">
+                                </ag-grid-angular>
+                                </div>
+                            </div>                            
+
+                           
+                        </form>
+
+
+                    </div>
+
+                </div>
+
+            </section>
+        </div>
+    </div>
+</div>

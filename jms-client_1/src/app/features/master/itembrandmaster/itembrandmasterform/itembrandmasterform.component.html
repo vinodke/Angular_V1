@@ -1,0 +1,62 @@
+
+          <div class="card card-info">
+            <div class="card-header">
+              <h3 class="card-title">Item Brand Master</h3>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+            <form [formGroup]="itemBrandMasterForm" class="form-horizontal">
+              
+                <div class="card-body col-sm-8">
+                  <div class="row form-group">
+                    <label class="col-sm-4 col-form-label" for="inputEmail3">Item Brand Code *</label>
+                    <div class="col-sm-6">
+                      <input type="text" formControlName="ItemBrandCode" class="form-control" maxlength="50"
+                       [ngClass]="{ 'is-invalid': submitted && itemBrandMasterFormControls.ItemBrandCode.errors }"
+                      pattern="^[a-zA-Z0-9\s]+$" />
+                      <div *ngIf="submitted && itemBrandMasterFormControls.ItemBrandCode.errors" class="invalid-feedback">
+                                  <div *ngIf="itemBrandMasterFormControls.ItemBrandCode.errors.required">Item Brand Code is required</div>
+                                  <div *ngIf="itemBrandMasterFormControls.ItemBrandCode.errors.pattern && itemBrandMasterFormControls.ItemBrandCode.dirty && itemBrandMasterFormControls.ItemBrandCode.invalid">Special Characters are not allowed.</div>
+                              </div>
+                    </div>
+                  
+                  </div>
+  
+                  <div class="row form-group">
+                    <label class="col-sm-4 col-form-label" for="inputEmail3">Item Brand Name *</label>
+                    <div class="col-sm-6">
+                      <input type="text" formControlName="ItemBrandName" class="form-control"  maxlength="100"
+                       [ngClass]="{ 'is-invalid': submitted && itemBrandMasterFormControls.ItemBrandName.errors }"
+                      pattern="^[a-zA-Z0-9\s]+$"/>
+                      <div *ngIf="submitted && itemBrandMasterFormControls.ItemBrandName.errors" class="invalid-feedback">
+                                      <div *ngIf="itemBrandMasterFormControls.ItemBrandName.errors.required">Item Brand Name is required</div>
+                                      <div *ngIf="itemBrandMasterFormControls.ItemBrandName.errors.pattern && itemBrandMasterFormControls.ItemBrandName.dirty && itemBrandMasterFormControls.ItemBrandName.invalid">Special Characters are not allowed.</div>
+                                  </div>
+                    </div>
+                  </div>
+  
+                <!-- /.card-body -->
+          
+              <!-- /.row -->
+  
+              <div class="card-footer" style="align-content: center;">
+                <button type="button" (click)="SaveItemBrandMaster()" [disabled]="loading || isbtnSaveDisabled"
+                  class="btn btn-success btn-sm mr-1 ml-1 mt-2 mb-2">
+                  <!-- <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1 mb-1"></span> -->
+                  Save
+                </button>
+                <button type="button" (click)="ShowGrid()" class="btn btn-primary btn-sm mr-1 ml-1 mt-2 mb-2">
+                  Back
+                </button>
+                <button type="button" (click)=ClearContents() [disabled]="isbtnClearDisabled" class="btn btn-info btn-sm mr-1 ml-1 mt-2 mb-2">
+                  Clear
+                </button>
+                <div *ngIf="error" style="color: red;font-weight: bold;">{{error}}</div>
+              </div>
+                </div>
+            </form>
+  
+  
+          </div>
+  
+       

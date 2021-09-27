@@ -1,0 +1,151 @@
+
+          <div class="card card-info">
+            <div class="card-header">
+              <h3 class="card-title">Company Master</h3>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+            <form [formGroup]="companyMasterForm" class="form-horizontal">
+              
+                <div class="card-body col-sm-8">
+                  <div class="row form-group">
+                    <label class="col-sm-4 col-form-label" for="inputEmail3">Company Code *</label>
+                    <div class="col-sm-6">
+                      <input type="text" formControlName="CompanyCode" class="form-control" maxlength="50"
+                       [ngClass]="{ 'is-invalid': submitted && companyMasterFormControls.CompanyCode.errors }"
+                      pattern="^[a-zA-Z0-9\s]+$" />
+                      <div *ngIf="submitted && companyMasterFormControls.CompanyCode.errors" class="invalid-feedback">
+                                  <div *ngIf="companyMasterFormControls.CompanyCode.errors.required">Company Code is required</div>
+                                  <div *ngIf="companyMasterFormControls.CompanyCode.errors.pattern && companyMasterFormControls.CompanyCode.dirty && companyMasterFormControls.CompanyCode.invalid">Special Characters are not allowed.</div>
+                              </div>
+                    </div>
+                  
+                  </div>
+  
+                  <div class="row form-group">
+                    <label class="col-sm-4 col-form-label" for="inputEmail3">Company Name *</label>
+                    <div class="col-sm-6">
+                      <input type="text" formControlName="CompanyName" class="form-control"  maxlength="150"
+                       [ngClass]="{ 'is-invalid': submitted && companyMasterFormControls.CompanyName.errors }"
+                      pattern="^[a-zA-Z0-9\s]+$"/>
+                      <div *ngIf="submitted && companyMasterFormControls.CompanyName.errors" class="invalid-feedback">
+                                      <div *ngIf="companyMasterFormControls.CompanyName.errors.required">Company Name is required</div>
+                                      <div *ngIf="companyMasterFormControls.CompanyName.errors.pattern && companyMasterFormControls.CompanyName.dirty && companyMasterFormControls.CompanyName.invalid">Special Characters are not allowed.</div>
+                                  </div>
+                    </div>
+                  </div>
+
+                  <div class="row form-group">
+                    <label class="col-sm-4 col-form-label" for="inputEmail3">Contact Number *</label>
+                    <div class="col-sm-6">
+                      <input type="tel" formControlName="ContactNumber" class="form-control" maxlength="50"
+                       [ngClass]="{ 'is-invalid': submitted && companyMasterFormControls.ContactNumber.errors }"
+                      pattern="\+(9[976]\d|8[987530]\d|6[987]\d|5[90]\d|42\d|3[875]\d|
+                      2[98654321]\d|9[8543210]|8[6421]|6[6543210]|5[87654321]|
+                      4[987654310]|3[9643210]|2[70]|7|1)\d{1,14}$"/>
+                      <div *ngIf="submitted && companyMasterFormControls.ContactNumber.errors" class="invalid-feedback">
+                                      <div *ngIf="companyMasterFormControls.ContactNumber.errors.required">Contact Number is required</div>
+                                      <div *ngIf="companyMasterFormControls.ContactNumber.errors.pattern && companyMasterFormControls.ContactNumber.dirty && companyMasterFormControls.ContactNumber.invalid">Contact Number not Valid</div>
+                                  </div>
+                    </div>
+                  </div>
+
+                  <div class="row form-group">
+                    <label class="col-sm-4 col-form-label" for="inputEmail3">Email *</label>
+                    <div class="col-sm-6">
+                      <input type="email" formControlName="ContactEmail" class="form-control" maxlength="50"
+                       [ngClass]="{ 'is-invalid': submitted && companyMasterFormControls.ContactEmail.errors }"
+                      pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"/>
+                      <div *ngIf="submitted && companyMasterFormControls.ContactEmail.errors" class="invalid-feedback">
+                                      <div *ngIf="companyMasterFormControls.ContactEmail.errors.required">Email is required</div>
+                                      <div *ngIf="companyMasterFormControls.ContactEmail.errors.pattern && companyMasterFormControls.ContactEmail.dirty && companyMasterFormControls.ContactEmail.invalid">Email not Valid</div>
+                                  </div>
+                    </div>
+                  </div>
+                  
+                  <div class="row form-group">
+                    <label class="col-sm-4 col-form-label" for="inputEmail3">Address1 *</label>
+                    <div class="col-sm-6">
+                      <input type="text" formControlName="Address1" class="form-control" maxlength="250"
+                       [ngClass]="{ 'is-invalid': submitted && companyMasterFormControls.Address1.errors }"
+                      />
+                      <div *ngIf="submitted && companyMasterFormControls.Address1.errors" class="invalid-feedback">
+                                      <div *ngIf="companyMasterFormControls.Address1.errors.required">Address1 is required</div>
+                                      <!-- <div *ngIf="companyMasterFormControls.Address1.errors.pattern && companyMasterFormControls.Address1.dirty && companyMasterFormControls.Address1.invalid">Special Characters are not allowed.</div> -->
+                                  </div>
+                    </div>
+                  </div>
+                  <div class="row form-group">
+                    <label class="col-sm-4 col-form-label" for="inputEmail3">Address2 </label>
+                    <div class="col-sm-6">
+                      <input type="text" formControlName="Address2" class="form-control" maxlength="250"
+                       [ngClass]="{ 'is-invalid': submitted && companyMasterFormControls.Address2.errors }"
+                      />
+                      <div *ngIf="submitted && companyMasterFormControls.Address2.errors" class="invalid-feedback">
+                                      <!-- <div *ngIf="companyMasterFormControls.Address2.errors.required">Address1 is required</div> -->
+                                      <!-- <div *ngIf="companyMasterFormControls.Address1.errors.pattern && companyMasterFormControls.Address1.dirty && companyMasterFormControls.Address1.invalid">Special Characters are not allowed.</div> -->
+                                  </div>
+                    </div>
+                  </div>
+                  <div class="row form-group">
+                    <label class="col-sm-4 col-form-label" for="inputEmail3">City </label>
+                    <div class="col-sm-6">
+                      <input type="text" formControlName="City" class="form-control" maxlength="150"
+                       [ngClass]="{ 'is-invalid': submitted && companyMasterFormControls.City.errors }"
+                      />
+                      <div *ngIf="submitted && companyMasterFormControls.City.errors" class="invalid-feedback">
+                                      <!-- <div *ngIf="companyMasterFormControls.Address2.errors.required">Address1 is required</div> -->
+                                      <!-- <div *ngIf="companyMasterFormControls.Address1.errors.pattern && companyMasterFormControls.Address1.dirty && companyMasterFormControls.Address1.invalid">Special Characters are not allowed.</div> -->
+                                  </div>
+                    </div>
+                  </div>
+                  <div class="row form-group">
+                    <label class="col-sm-4 col-form-label" for="inputEmail3">State </label>
+                    <div class="col-sm-6">
+                      <input type="text" formControlName="State" class="form-control" maxlength="150"
+                       [ngClass]="{ 'is-invalid': submitted && companyMasterFormControls.State.errors }"
+                      />
+                      <div *ngIf="submitted && companyMasterFormControls.State.errors" class="invalid-feedback">
+                                      <!-- <div *ngIf="companyMasterFormControls.Address2.errors.required">Address1 is required</div> -->
+                                      <!-- <div *ngIf="companyMasterFormControls.Address1.errors.pattern && companyMasterFormControls.Address1.dirty && companyMasterFormControls.Address1.invalid">Special Characters are not allowed.</div> -->
+                                  </div>
+                    </div>
+                  </div>
+                  <div class="row form-group">
+                    <label class="col-sm-4 col-form-label" for="inputEmail3">Country </label>
+                    <div class="col-sm-6">
+                      <input type="text" formControlName="Country" class="form-control" maxlength="150"
+                       [ngClass]="{ 'is-invalid': submitted && companyMasterFormControls.Country.errors }"
+                      />
+                      <div *ngIf="submitted && companyMasterFormControls.Country.errors" class="invalid-feedback">
+                                      <!-- <div *ngIf="companyMasterFormControls.Address2.errors.required">Address1 is required</div> -->
+                                      <!-- <div *ngIf="companyMasterFormControls.Address1.errors.pattern && companyMasterFormControls.Address1.dirty && companyMasterFormControls.Address1.invalid">Special Characters are not allowed.</div> -->
+                                  </div>
+                    </div>
+                  </div>
+                </div>
+  
+                <!-- /.card-body -->
+          
+              <!-- /.row -->
+  
+              <div class="card-footer" style="align-content: center;">
+                <button type="button" (click)="SaveCompanyMaster()" [disabled]="loading || isbtnSaveDisabled"
+                  class="btn btn-success btn-sm mr-1 ml-1 mt-2 mb-2">
+                  <!-- <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1 mb-1"></span> -->
+                  Save
+                </button>
+                <button type="button" (click)="ShowGrid()" class="btn btn-primary btn-sm mr-1 ml-1 mt-2 mb-2">
+                  Back
+                </button>
+                <button type="button" (click)=ClearContents() [disabled]="isbtnClearDisabled" class="btn btn-info btn-sm mr-1 ml-1 mt-2 mb-2">
+                  Clear
+                </button>
+                <div *ngIf="error" style="color: red;font-weight: bold;">{{error}}</div>
+              </div>
+            </form>
+  
+  
+          </div>
+  
+        

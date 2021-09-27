@@ -1,0 +1,102 @@
+<div style="height: auto;">
+  <div class="wrapper" style="height: auto; min-height: 100%;">
+    <div class="content-wrapper">
+      <section class="content" style="padding: 1%;">
+        <!-- left column -->
+        <!-- general form elements -->
+        <div class="col-md-12">
+        <div class="card card-info">
+          <div class="card-header">
+            <h3 class="card-title">Site Master</h3>
+          </div>
+          <!-- /.card-header -->
+          <!-- form start -->
+          <form [formGroup]="sitemasterform" class="form-horizontal">
+            
+              <div class="card-body col-sm-6">
+                <div class="row form-group">
+                  <label class="col-sm-4 col-form-label" >Site Code *</label>
+                  <div class="col-sm-6">
+                    <input type="text" formControlName="SiteCode" class="form-control" 
+                     [ngClass]="{ 'is-invalid': submitted && sitemasterFormControls.SiteCode.errors }"
+                    pattern="^[a-zA-Z0-9\s]+$" />
+                    <div *ngIf="submitted && sitemasterFormControls.SiteCode.errors" class="invalid-feedback">
+                                <div *ngIf="sitemasterFormControls.SiteCode.errors.required">Site Code is required</div>
+                                <div *ngIf="sitemasterFormControls.SiteCode.errors.pattern && sitemasterFormControls.SiteCode.dirty && sitemasterFormControls.SiteCode.invalid">Special Characters are not allowed.</div>
+                            </div>
+                  </div>
+                
+                </div>
+
+                <div class="row form-group">
+                  <label class="col-sm-4 col-form-label" >Site Name *</label>
+                  <div class="col-sm-6">
+                    <input type="text" formControlName="SiteName" class="form-control" 
+                     [ngClass]="{ 'is-invalid': submitted && sitemasterFormControls.SiteName.errors }"
+                    pattern="^[a-zA-Z0-9\s]+$"/>
+                    <div *ngIf="submitted && sitemasterFormControls.SiteName.errors" class="invalid-feedback">
+                                    <div *ngIf="sitemasterFormControls.SiteName.errors.required">Site Name is required</div>
+                                    <div *ngIf="sitemasterFormControls.SiteName.errors.pattern && sitemasterFormControls.SiteName.dirty && sitemasterFormControls.SiteName.invalid">Special Characters are not allowed.</div>
+                                </div>
+                  </div>
+                </div>
+
+                <div class="row form-group">
+                  <label class="col-sm-4 col-form-label" >Address Line 1 *</label>
+                  <div class="col-sm-6">
+                    <input type="text" formControlName="AddressLine1" class="form-control" 
+                     [ngClass]="{ 'is-invalid': submitted && sitemasterFormControls.AddressLine1.errors }"
+                    />
+                    <div *ngIf="submitted && sitemasterFormControls.AddressLine1.errors" class="invalid-feedback">
+                              <div *ngIf="sitemasterFormControls.AddressLine1.errors.required">Address Line 1 is required</div>
+                          </div>
+                  </div>
+                </div>
+
+                <div class="row form-group">
+                  <label class="col-sm-4 col-form-label" >Address Line 2</label>
+                  <div class="col-sm-6">
+                    <input type="text" formControlName="AddressLine2" class="form-control"/>
+                    
+                  </div>
+                </div>
+
+
+                <div class="row form-group">
+                  <label class="col-sm-4 col-form-label" >City</label>
+                  <div class="col-sm-6">
+                    <input type="text" formControlName="City" class="form-control" />
+                    
+                  </div>
+                </div>
+              </div>
+
+              <!-- /.card-body -->
+        
+            <!-- /.row -->
+
+            <div class="card-footer" style="align-content: center;">
+              <button type="button" (click)="SaveSiteMaster()" [disabled]="loading || isbtnSaveDisabled"
+                class="btn btn-success btn-sm mr-1 ml-1 mt-2 mb-2">
+                <!-- <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1 mb-1"></span> -->
+                Save
+              </button>
+              <button type="button" (click)="ShowGrid()" class="btn btn-primary btn-sm mr-1 ml-1 mt-2 mb-2">
+                Back
+              </button>
+              <button type="button" (click)=ClearContents() [disabled]="isbtnClearDisabled" class="btn btn-info btn-sm mr-1 ml-1 mt-2 mb-2">
+                Clear
+              </button>
+              <div *ngIf="error" style="color: red;font-weight: bold;">{{error}}</div>
+            </div>
+          </form>
+
+
+        </div>
+
+      </div>
+
+      </section>
+    </div>
+  </div>
+</div>

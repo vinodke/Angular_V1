@@ -1,0 +1,62 @@
+
+          <div class="card card-info">
+            <div class="card-header">
+              <h3 class="card-title">Item Group Master</h3>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+            <form [formGroup]="itemGroupMasterForm" class="form-horizontal">
+              
+                <div class="card-body col-sm-8">
+                  <div class="row form-group">
+                    <label class="col-sm-4 col-form-label" for="inputEmail3">Item Group Code *</label>
+                    <div class="col-sm-6">
+                      <input type="text" formControlName="ItemGroupCode" class="form-control" maxlength="50"
+                       [ngClass]="{ 'is-invalid': submitted && itemGroupMasterFormControls.ItemGroupCode.errors }"
+                      pattern="^[a-zA-Z0-9\s]+$" />
+                      <div *ngIf="submitted && itemGroupMasterFormControls.ItemGroupCode.errors" class="invalid-feedback">
+                                  <div *ngIf="itemGroupMasterFormControls.ItemGroupCode.errors.required">Item Group Code is required</div>
+                                  <div *ngIf="itemGroupMasterFormControls.ItemGroupCode.errors.pattern && itemGroupMasterFormControls.ItemGroupCode.dirty && itemGroupMasterFormControls.ItemGroupCode.invalid">Special Characters are not allowed.</div>
+                              </div>
+                    </div>
+                  
+                  </div>
+  
+                  <div class="row form-group">
+                    <label class="col-sm-4 col-form-label" for="inputEmail3">Item Group Name *</label>
+                    <div class="col-sm-6">
+                      <input type="text" formControlName="ItemGroupName" class="form-control"  maxlength="100"
+                       [ngClass]="{ 'is-invalid': submitted && itemGroupMasterFormControls.ItemGroupName.errors }"
+                      pattern="^[a-zA-Z0-9\s]+$"/>
+                      <div *ngIf="submitted && itemGroupMasterFormControls.ItemGroupName.errors" class="invalid-feedback">
+                                      <div *ngIf="itemGroupMasterFormControls.ItemGroupName.errors.required">Item Group Name is required</div>
+                                      <div *ngIf="itemGroupMasterFormControls.ItemGroupName.errors.pattern && itemGroupMasterFormControls.ItemGroupName.dirty && itemGroupMasterFormControls.ItemGroupName.invalid">Special Characters are not allowed.</div>
+                                  </div>
+                    </div>
+                  </div>
+  
+                <!-- /.card-body -->
+          
+              <!-- /.row -->
+  
+              <div class="card-footer" style="align-content: center;">
+                <button type="button" (click)="SaveItemGroupMaster()" [disabled]="loading || isbtnSaveDisabled"
+                  class="btn btn-success btn-sm mr-1 ml-1 mt-2 mb-2">
+                  <!-- <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1 mb-1"></span> -->
+                  Save
+                </button>
+                <button type="button" (click)="ShowGrid()" class="btn btn-primary btn-sm mr-1 ml-1 mt-2 mb-2">
+                  Back
+                </button>
+                <button type="button" (click)=ClearContents() [disabled]="isbtnClearDisabled" class="btn btn-info btn-sm mr-1 ml-1 mt-2 mb-2">
+                  Clear
+                </button>
+                <div *ngIf="error" style="color: red;font-weight: bold;">{{error}}</div>
+              </div>
+                </div>
+            </form>
+  
+  
+          </div>
+  
+       

@@ -1,0 +1,107 @@
+
+          <div class="card card-info">
+            <div class="card-header">
+              <h3 class="card-title">Tax Master</h3>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+            <form [formGroup]="taxMasterForm" class="form-horizontal">
+              
+                <div class="card-body col-sm-8">
+
+                    <div class="row form-group">
+                        <label class="col-sm-4 col-form-label" >Category *</label>
+                        <div class="col-sm-6">
+                            <select class="form-control select2bs4 select2-hidden-accessible" style="height: 10px !important;width: 100%;"  formControlName="CategorySelCode"
+                            [ngClass]="{ 'is-invalid': submitted && taxMasterFormControls.CategorySelCode.errors }" name="CategorySelCode" required>
+                            <option selected="selected"></option>
+                            <option *ngFor="let x of categories" value="{{ x.id }}">
+                                {{ x.categoryCode }} - {{ x.categoryName }}
+                            </option>
+                        </select>
+                        
+                            <div *ngIf="taxMasterFormControls.CategorySelCode.errors" class="invalid-feedback">
+                                <div *ngIf="submitted && taxMasterFormControls.CategorySelCode.errors.required">Category Code is required</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <label class="col-sm-4 col-form-label" >UOM *</label>
+                        <div class="col-sm-6">
+                            <select class="form-control select2bs4 select2-hidden-accessible" style="height: 10px !important;width: 100%;"  formControlName="UOMSelCode"
+                            [ngClass]="{ 'is-invalid': submitted && taxMasterFormControls.UOMSelCode.errors }" name="UOMSelCode" required>
+                            <option selected="selected"></option>
+                            <option *ngFor="let x of uomcodes" value="{{ x.id }}">
+                                {{ x.uomCode }} - {{ x.uomName }}
+                            </option>
+                        </select>
+                        
+                            <div *ngIf="taxMasterFormControls.UOMSelCode.errors" class="invalid-feedback">
+                                <div *ngIf="submitted && taxMasterFormControls.UOMSelCode.errors.required">UOM Code is required</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <label class="col-sm-4 col-form-label" >Karat </label>
+                        <div class="col-sm-6">
+                            <select class="form-control select2bs4 select2-hidden-accessible" style="height: 10px !important;width: 100%;" name="KaratSelCode"  formControlName="KaratSelCode">
+                            <option selected="selected"></option>
+                            <option *ngFor="let x of karatCodes" value="{{ x.id }}">
+                                {{ x.karatCode }} - {{ x.karatName }}
+                            </option>
+                        </select>
+                        </div>
+                    </div>
+
+                  <div class="row form-group">
+                    <label class="col-sm-4 col-form-label" for="inputEmail3">Item Tax *</label>
+                    <div class="col-sm-6">
+                      <input type="text" formControlName="ItemTax" class="form-control" maxlength="32"
+                       [ngClass]="{ 'is-invalid': submitted && taxMasterFormControls.ItemTax.errors }"
+                       pattern="[0-9]+([\.,][0-9]+)?" />
+                      <div *ngIf="submitted && taxMasterFormControls.ItemTax.errors" class="invalid-feedback">
+                                  <div *ngIf="taxMasterFormControls.ItemTax.errors.pattern && taxMasterFormControls.ItemTax.dirty && taxMasterFormControls.ItemTax.invalid"> Characters are not allowed.</div>
+                              </div>
+                    </div>
+                  
+                  </div>
+
+                  <div class="row form-group">
+                    <label class="col-sm-4 col-form-label" for="inputEmail3">Labour Tax *</label>
+                    <div class="col-sm-6">
+                      <input type="text" formControlName="LabourTax" class="form-control" maxlength="32"
+                       [ngClass]="{ 'is-invalid': submitted && taxMasterFormControls.LabourTax.errors }"
+                       pattern="[0-9]+([\.,][0-9]+)?" />
+                      <div *ngIf="submitted && taxMasterFormControls.LabourTax.errors" class="invalid-feedback">
+                                  <div *ngIf="taxMasterFormControls.LabourTax.errors.pattern && taxMasterFormControls.LabourTax.dirty && taxMasterFormControls.LabourTax.invalid"> Characters are not allowed.</div>
+                              </div>
+                    </div>
+                  
+                  </div>
+                  
+                </div>
+  
+                <!-- /.card-body -->
+          
+              <!-- /.row -->
+  
+              <div class="card-footer" style="align-content: center;">
+                <button type="button" (click)="SaveTaxMaster()" [disabled]="loading || isbtnSaveDisabled"
+                  class="btn btn-success btn-sm mr-1 ml-1 mt-2 mb-2">
+                  <!-- <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1 mb-1"></span> -->
+                  Save
+                </button>
+                <button type="button" (click)="ShowGrid()" [hidden]="routetype" class="btn btn-primary btn-sm mr-1 ml-1 mt-2 mb-2">
+                  Back
+                </button>
+                <button type="button" (click)=ClearContents() [disabled]="isbtnClearDisabled" class="btn btn-info btn-sm mr-1 ml-1 mt-2 mb-2">
+                  Clear
+                </button>
+                <div *ngIf="error" style="color: red;font-weight: bold;">{{error}}</div>
+              </div>
+            </form>
+  
+  
+          </div>
+  

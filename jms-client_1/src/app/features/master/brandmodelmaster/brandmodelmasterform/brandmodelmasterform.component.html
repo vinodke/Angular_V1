@@ -1,0 +1,104 @@
+<div style="height: auto;">
+    <div class="wrapper" style="height: auto; min-height: 100%;">
+        <div class="content-wrapper">
+            <section class="content" style="padding: 1%;">
+                <!-- left column -->
+                <!-- general form elements -->
+                <div class="col-md-12">
+                    <div class="card card-info">
+                        <div class="card-header">
+                            <h3 class="card-title">Brand Model Master</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <!-- form start -->
+                        <form [formGroup]="brandmodelmasterform" class="form-horizontal">
+
+                            <div class="card-body col-sm-6">
+                               
+
+                                <div class="row form-group">
+                                    <label class="col-sm-4 col-form-label" >Brand Code *</label>
+                                    <div class="col-sm-6">
+                                        <select class="form-control select2bs4 select2-hidden-accessible" style="width: 100%;"  formControlName="brandSelCode"
+                                            [ngClass]="{ 'is-invalid': submitted && brandmodelmasterFormControls.brandSelCode.errors }" name="brandSelCode" required>
+                                            <option selected="selected"></option>
+                                            <option *ngFor="let x of brandcodes" value="{{ x.brandID }}">
+                                                {{ x.brandCode }} - {{ x.brandName }}
+                                            </option>
+                                        </select>
+                                        <!-- <select class="form-control" formControlName="brandSelCode" id="brandSelCode"
+                                        [ngClass]="{ 'is-invalid': submitted && brandmodelmasterFormControls.brandSelCode.errors }">
+                                        <option *ngFor="let x of brandcodes" value="{{x.brandID}}">
+                                            {{x.brandCode}}
+                                        </option>
+                                    </select> -->
+                                        <div *ngIf="brandmodelmasterFormControls.brandSelCode.errors" class="invalid-feedback">
+                                        <div *ngIf="submitted && brandmodelmasterFormControls.brandSelCode.errors.required">Brand Code is required</div>
+                                       
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row form-group">
+                                    <label class="col-sm-4 col-form-label" >Model Code *</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" formControlName="ModelCode" class="form-control"
+                                        [ngClass]="{ 'is-invalid': submitted && brandmodelmasterFormControls.ModelCode.errors }"
+                                        pattern="^[a-zA-Z0-9\s]+$" />
+                                    <div *ngIf="brandmodelmasterFormControls.ModelCode.errors" class="invalid-feedback">
+                                        <div *ngIf="submitted && brandmodelmasterFormControls.ModelCode.errors.required">Model Code is required</div>
+                                        <div
+                                            *ngIf="brandmodelmasterFormControls.ModelCode.errors.pattern && brandmodelmasterFormControls.ModelCode.dirty && brandmodelmasterFormControls.ModelCode.invalid">
+                                            Special Characters are not allowed.</div>
+                                    </div>
+                                    </div>
+                                </div>
+
+                                <div class="row form-group">
+                                    <label class="col-sm-4 col-form-label" >Model Name *</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" formControlName="ModelName" class="form-control"
+                                        [ngClass]="{ 'is-invalid': submitted && brandmodelmasterFormControls.ModelName.errors }"
+                                        pattern="^[a-zA-Z0-9\s]+$" />
+                                    <div *ngIf="brandmodelmasterFormControls.ModelName.errors" class="invalid-feedback">
+                                        <div *ngIf="submitted && brandmodelmasterFormControls.ModelName.errors.required">Model Name is required</div>
+                                        <div
+                                            *ngIf="brandmodelmasterFormControls.ModelName.errors.pattern && brandmodelmasterFormControls.ModelName.dirty && brandmodelmasterFormControls.ModelName.invalid">
+                                            Special Characters are not allowed.</div>
+                                    </div>
+                                    </div>
+                                
+                            </div>
+
+                    </div>
+
+                    <!-- /.card-body -->
+
+                    <!-- /.row -->
+
+                    <div class="card-footer" style="align-content: center;">
+                        <button type="button" (click)="SaveBuildingMaster()" [disabled]="loading || isbtnSaveDisabled"
+                            class="btn btn-success btn-sm mr-1 ml-1 mt-2 mb-2">
+                            <!-- <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1 mb-1"></span> -->
+                            Save
+                        </button>
+                        <button type="button" (click)="ShowGrid()" class="btn btn-primary btn-sm mr-1 ml-1 mt-2 mb-2">
+                            Back
+                        </button>
+                        <button type="button" (click)=ClearContents() [disabled]="isbtnClearDisabled"
+                            class="btn btn-info btn-sm mr-1 ml-1 mt-2 mb-2">
+                            Clear
+                        </button>
+                        <div *ngIf="error" style="color: red;font-weight: bold;">{{error}}</div>
+                    </div>
+                    </form>
+
+
+                </div>
+
+        </div>
+
+        </section>
+    </div>
+</div>
+</div>

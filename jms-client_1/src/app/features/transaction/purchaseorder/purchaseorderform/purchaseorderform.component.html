@@ -1,0 +1,304 @@
+<div class="card card-info">
+    <div class="card-header">
+        <h3 class="card-title">{{headerText}}</h3>
+    </div>
+    <!-- /.card-header -->
+    <!-- form start -->
+    <form [formGroup]="purchaseOrderForm" class="form-horizontal">
+        <jw-modal id="custom-modal-1">
+            <h1>A Custom Modal Window!</h1>
+            <p>Home page text: <input type="text" /></p>
+            <org-fat-purchaseordergrid class="content-wrapper popupside"></org-fat-purchaseordergrid>
+            <button (click)="closeModal('custom-modal-1');">Close</button>
+        </jw-modal>
+        <jw-modal id="custom-modal-2">
+            <!-- <h3>{{modalHeading}}</h3> -->
+            <!-- <button   (click)="closeModal('custom-modal-2');" class="closebutton" data-toggle="tooltip" data-placement="top" title="Close">X</button> -->
+            <button type="button" (click)="closeModal('custom-modal-2');" class="close" data-toggle="tooltip" data-placement="top" title="Close">&times;</button>
+            <org-fat-warehousemasterform [routetype]="true" [hidden]="!isWarehouse" class="content-wrapper popupside">
+            </org-fat-warehousemasterform>
+            <org-fat-suppliermasterform [routetype]="true" [hidden]="!isSupplier" class="content-wrapper popupside">
+            </org-fat-suppliermasterform>
+            <org-fat-itemmasterform [routetype]="true" [hidden]="!isItem" class="content-wrapper popupside">
+            </org-fat-itemmasterform>
+        </jw-modal>
+        <div>
+            <button type="button" (click)="SavePO()" [disabled]="loading || isbtnSaveDisabled" [hidden]="!isCreateAllowed" class="btn btn-success btn-sm">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1 mb-1"></span>
+                Save
+            </button>
+            <button type="button" (click)="ApprovePO()" [disabled]="loading || isbtnSaveDisabled" [hidden]="!isApproveAllowed" class="btn btn-success btn-sm">
+                <!-- <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1 mb-1"></span> -->
+                Approve
+            </button>
+            <button type="button" (click)="ShowGrid()" [hidden]="!editMode" class="btn btn-info btn-sm">
+                Back
+            </button>
+            <button type="button" (click)=ClearContents() [disabled]="isbtnClearDisabled" [hidden]="editMode" class="btn btn-info btn-sm">
+                Clear
+            </button>
+            <button type="button" (click)=ViewPurchaseOrder() [hidden]="editMode || !isEditAllowed" class="btn btn-info btn-sm">
+                Edit Purchase Order
+            </button>
+            <button type="button" (click)=CancelPO() [hidden]="!editMode || !isDeleteAllowed" class="btn btn-info btn-sm">
+                Cancel Purchase Order
+            </button>
+            <div *ngIf="error" style="color: red;font-weight: bold;">{{error}}</div>
+        </div>
+        <div class="card-header inner">
+            <h3 class="card-title">Purchase Document Details</h3>
+        </div>
+        <div class="card-body" id="ReceiptDocDetailsDiv" name="ReceiptDocDetailsDiv">
+            <div class="row">
+                <div class="col">
+                    <div class="row form-group">
+                        <label class="col-sm-4 col-form-label">Store/Warehouse *</label>
+                        <div class="col-sm-5">
+                            <select class="form-control select2bs4 select2-hidden-accessible" style="width: 100%;" formControlName="warehouseSelCode" [ngClass]="{ 'is-invalid': submitted && purchaseOrderFormControls.warehouseSelCode.errors }" name="warehouseSelCode">
+                                <option selected="selected"></option>
+                                <option *ngFor="let x of warehouseCodes" value="{{ x.id }}">
+                                    {{ x.warehouseCode }} - {{ x.warehouseName }}
+                                </option>
+                            </select>
+                            <div *ngIf="submitted && purchaseOrderFormControls.warehouseSelCode.errors" class="invalid-feedback">
+                                <div *ngIf="submitted && purchaseOrderFormControls.warehouseSelCode.errors.required">
+                                    Store/Warehouse Code is required</div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <button type="button" (click)="showForm('custom-modal-2','warehouse')" class="btn btn-info btn-sm">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <label class="col-sm-4 col-form-label">Supplier
+                            Code *</label>
+                        <div class="col-sm-5">
+                            <select class="form-control select2bs4 select2-hidden-accessible" style="width: 100%;" formControlName="supplierSelCode" [ngClass]="{ 'is-invalid': submitted && purchaseOrderFormControls.supplierSelCode.errors }" name="supplierSelCode">
+                                <option selected="selected"></option>
+                                <option *ngFor="let x of suppCodes" value="{{ x.id }}">
+                                    {{ x.supplierCode }} - {{ x.supplierName }}
+                                </option>
+                            </select>
+                            <div *ngIf="submitted && purchaseOrderFormControls.supplierSelCode.errors" class="invalid-feedback">
+                                <div *ngIf="submitted && purchaseOrderFormControls.supplierSelCode.errors.required">
+                                    Supplier Code is required</div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <button type="button" (click)="showForm('custom-modal-2','supplier')" class="btn btn-info btn-sm">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <label class="col-sm-4 col-form-label">Remarks
+                        </label>
+                        <div class="col-sm-6">
+                            <input type="text" formControlName="Remarks" class="form-control" [ngClass]="{ 'is-invalid': submitted && purchaseOrderFormControls.Remarks.errors }" />
+                            <div *ngIf="submitted && purchaseOrderFormControls.Remarks.errors" class="invalid-feedback">
+                                <!-- <div
+                                                        *ngIf="submitted && purchaseOrderFormControls.Remarks.errors.required">
+                                                        Document No is required</div> -->
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col">
+                    <div class="row form-group">
+                        <label class="col-sm-4 col-form-label">PO
+                            Date *</label>
+                        <div class="col-sm-6">
+                            <div class="input-group date" id="PODate" data-target-input="nearest">
+                                <input type="text" #PODate class="form-control datetimepicker-input" [ngClass]="{ 'is-invalid': submitted && !PODate.value }" name="RecpDate" data-target="#PODate" />
+                                <div class="input-group-append" data-target="#PODate" data-toggle="datetimepicker">
+                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                </div>
+                                <div *ngIf="submitted && !PODate.value" class="invalid-feedback">
+                                    Purchase Order Date is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-header inner">
+            <h3 class="card-title">Item Details</h3>
+        </div>
+        <div class="card-body">
+            <div class="row" [hidden]="isApproveAllowed">
+                <div class="col">
+                    <div class="row form-group">
+                        <label class="col-sm-4 col-form-label">Category Code
+                        </label>
+                        <div class="col-sm-6">
+                            <select class="form-control select2bs4 select2-hidden-accessible" style="width: 100%;" formControlName="CategoyCode" [ngClass]="{ 'is-invalid': submitted && purchaseOrderFormControls.CategoyCode.errors }" name="CategoyCode">
+                                <option selected="selected"></option>
+                                <option *ngFor="let x of categoryCodes" value="{{ x.id }}">
+                                    {{ x.categoryCode }} - {{ x.categoryName }}
+                                </option>
+                            </select>
+
+                            <!-- <div *ngIf="submitted && purchaseOrderFormControls.CategoyCode.errors"
+                                                    class="invalid-feedback">
+                                                    <div
+                                                        *ngIf="submitted && purchaseOrderFormControls.ItemCode.errors.required">
+                                                        Product Code is required</div>
+                                                </div> -->
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <label class="col-sm-4 col-form-label">SubCategory Code
+                        </label>
+                        <div class="col-sm-6">
+                            <select class="form-control select2bs4 select2-hidden-accessible" style="width: 100%;" formControlName="SubCategoyCode" [ngClass]="{ 'is-invalid': submitted && purchaseOrderFormControls.SubCategoyCode.errors }" name="SubCategoyCode">
+                                <option selected="selected"></option>
+                                <option *ngFor="let x of subCategoryCodes" value="{{ x.id }}">
+                                    {{ x.subCategoryCode }} - {{ x.subCategoryName }}
+                                </option>
+                            </select>
+
+                            <!-- <div *ngIf="submitted && purchaseOrderFormControls.CategoyCode.errors"
+                                                    class="invalid-feedback">
+                                                    <div
+                                                        *ngIf="submitted && purchaseOrderFormControls.ItemCode.errors.required">
+                                                        Product Code is required</div>
+                                                </div> -->
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <label class="col-sm-4 col-form-label">Item Code
+                            *</label>
+                        <div class="col-sm-5">
+                            <select class="form-control select2bs4 select2-hidden-accessible" style="width: 100%;" formControlName="ItemCode" [ngClass]="{ 'is-invalid': submitted && purchaseOrderFormControls.ItemCode.errors }" name="ItemCode">
+                                <option selected="selected"></option>
+                                <option *ngFor="let x of itemCodes" value="{{ x.id }}">
+                                    {{ x.itemCode }} - {{ x.itemName }}
+                                </option>
+                            </select>
+
+                            <div *ngIf="submitted && purchaseOrderFormControls.ItemCode.errors" class="invalid-feedback">
+                                <div *ngIf="submitted && purchaseOrderFormControls.ItemCode.errors.required">
+                                    Item Code is required</div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <button type="button" (click)="showForm('custom-modal-2','item')" class="btn btn-info btn-sm">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <label class="col-sm-4 col-form-label">Product Desc
+                        </label>
+                        <div class="col-sm-6">
+                            <label class="col-form-label">{{ productDescription }}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="row form-group">
+                        <label class="col-sm-4 col-form-label">UOM Code
+                        </label>
+                        <div class="col-sm-6">
+                            <label class="col-form-label">{{ UOMCode }}
+                            </label>
+                            <!-- <select class="form-control select2bs4 select2-hidden-accessible"
+                                                    style="width: 100%;" formControlName="UOMCode"
+                                                    [ngClass]="{ 'is-invalid': submitted && purchaseOrderFormControls.UOMCode.errors }"
+                                                    name="UOMCode">
+                                                    <option selected="selected"></option>
+                                                    <option *ngFor="let x of uomCodes" value="{{ x.id }}">
+                                                        {{ x.uomCode }} - {{ x.uomName }}
+                                                    </option>
+                                                </select>
+
+                                                <div *ngIf="submitted && purchaseOrderFormControls.UOMCode.errors"
+                                                    class="invalid-feedback">
+                                                    <div
+                                                        *ngIf="submitted && purchaseOrderFormControls.UOMCode.errors.required">
+                                                        UOM Code is required</div>
+                                                </div> -->
+                        </div>
+                    </div>
+                    <div class="row form-group" [hidden]="!isVisible">
+                        <label class="col-sm-4 col-form-label">Metal Weight(gm)
+                        </label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" formControlName="MetalWeight" [ngClass]="{ 'is-invalid': isVisible && submitted && purchaseOrderFormControls.MetalWeight.errors }" pattern="[0-9]+([\.,][0-9]+)?" />
+
+                            <div *ngIf="isVisible && submitted && purchaseOrderFormControls.MetalWeight.errors" class="invalid-feedback">
+                                <div *ngIf="isVisible && submitted && purchaseOrderFormControls.MetalWeight.errors.required">
+                                    Metal Weight is required</div>
+                                <div *ngIf="isVisible && submitted && purchaseOrderFormControls.MetalWeight.errors.pattern && purchaseOrderFormControls.MetalWeight.dirty && purchaseOrderFormControls.MetalWeight.invalid">
+                                    Enter numeric value.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row form-group" [hidden]="!isVisible">
+                        <label class="col-sm-4 col-form-label">Stone Weight(gm)
+                        </label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" formControlName="StoneWeight" [ngClass]="{ 'is-invalid': isVisible && submitted && purchaseOrderFormControls.StoneWeight.errors }" pattern="[0-9]+([\.,][0-9]+)?" />
+
+                            <div *ngIf="isVisible && submitted && purchaseOrderFormControls.StoneWeight.errors" class="invalid-feedback">
+                                <div *ngIf="isVisible && submitted && purchaseOrderFormControls.StoneWeight.errors.pattern && purchaseOrderFormControls.StoneWeight.dirty && purchaseOrderFormControls.StoneWeight.invalid">
+                                    Enter numeric value.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <label class="col-sm-4 col-form-label">Enter Qty
+                            *</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" formControlName="EnterQty" [ngClass]="{ 'is-invalid': submitted && purchaseOrderFormControls.EnterQty.errors }" pattern="[0-9]+([\.,][0-9]+)?" />
+
+                            <div *ngIf="submitted && purchaseOrderFormControls.EnterQty.errors" class="invalid-feedback">
+                                <div *ngIf="submitted && purchaseOrderFormControls.EnterQty.errors.required">
+                                    Qauntity is required</div>
+                                <div *ngIf="submitted && purchaseOrderFormControls.EnterQty.errors.pattern && purchaseOrderFormControls.EnterQty.dirty && purchaseOrderFormControls.EnterQty.invalid">
+                                    Enter numeric value.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div style="text-align: left;padding-left: 15px;">
+                    <button type="button" [hidden]="isPOAddHidden || isApproveAllowed" (click)="AddToPOGrid()" class="btn btn-primary btn-sm mr-1 ml-1 mt-2 mb-2">
+                        <!-- <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1 mb-1"></span> -->
+                        Add
+                    </button>
+                    <button type="button" [hidden]="isPOEditHidden || isApproveAllowed" (click)="EditPO()" class="btn btn-primary btn-sm mr-1 ml-1 mt-2 mb-2">
+                        Edit
+                    </button>
+                    <button type="button" [hidden]="isPODeleteHidden || isApproveAllowed" (click)="DeletePODetails()" class="btn btn-primary btn-sm mr-1 ml-1 mt-2 mb-2">
+                        Delete
+                    </button>
+                    <button type="button" [hidden]="isPOUpdateHidden || isApproveAllowed" (click)="UpdatePODetails()" class="btn btn-primary btn-sm mr-1 ml-1 mt-2 mb-2">
+                        Update
+                    </button>
+                    <button type="button" [hidden]="isPOCancelHidden || isApproveAllowed" (click)="CancelPODetails()" class="btn btn-primary btn-sm mr-1 ml-1 mt-2 mb-2">
+                        Cancel
+                    </button>
+                    <button type="button" [hidden]="isPOClearHidden || isApproveAllowed" (click)="ClearPOItemDetails()" class="btn btn-primary btn-sm mr-1 ml-1 mt-2 mb-2">
+                        Clear
+                    </button>
+                    <div *ngIf="errorPO" style="color: red;font-weight: bold;">{{errorPO}}</div>
+                </div>
+
+                <ag-grid-angular #agGrid style="width: 76vw; height: 15vw;padding-left: 15px;" class="ag-theme-alpine" [rowData]="rowpoData" [columnDefs]="columnPODefs" rowSelection="single" cellSelection="none" animateRows="true" defaultColDef="defaultColDef" (rowClicked)="onReceiptRowClick($event)"
+                    suppressCellSelection="true">
+                </ag-grid-angular>
+            </div>
+        </div>
+    </form>
+</div>

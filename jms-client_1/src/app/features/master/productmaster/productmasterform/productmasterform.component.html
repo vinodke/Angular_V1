@@ -1,0 +1,155 @@
+<div style="height: auto;">
+    <div class="wrapper" style="height: auto; min-height: 100%;">
+        <div class="content-wrapper">
+            <section class="content" style="padding: 1%;">
+                <!-- left column -->
+                <!-- general form elements -->
+                <div class="col-md-12">
+                    <div class="card card-info">
+                        <div class="card-header">
+                            <h3 class="card-title">Product Master</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <!-- form start -->
+                        <form [formGroup]="productmasterform" class="form-horizontal">
+
+                            <div class="card-body col-md-6">
+                                <div class="row form-group">
+                                    <label class="col-sm-4 col-form-label" >Product Code
+                                        *</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" formControlName="ProductCode" class="form-control"
+                                            [ngClass]="{ 'is-invalid': submitted && productmasterFormControls.ProductCode.errors }"
+                                            pattern="^[a-zA-Z0-9\s]+$" />
+                                        <div *ngIf="productmasterFormControls.ProductCode.errors"
+                                            class="invalid-feedback">
+                                            <div
+                                                *ngIf="submitted && productmasterFormControls.ProductCode.errors.required">
+                                                Product Code is required</div>
+                                            <div
+                                                *ngIf="submitted && productmasterFormControls.ProductCode.errors.pattern && productmasterFormControls.ProductCode.dirty && productmasterFormControls.ProductCode.invalid">
+                                                Special Characters are not allowed.</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="row form-group">
+                                    <label class="col-sm-4 col-form-label" >Product Name
+                                        *</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" formControlName="ProductName" class="form-control"
+                                            [ngClass]="{ 'is-invalid': submitted && productmasterFormControls.ProductName.errors }"
+                                            pattern="^[a-zA-Z0-9\s]+$" />
+                                        <div *ngIf="productmasterFormControls.ProductName.errors"
+                                            class="invalid-feedback">
+                                            <div
+                                                *ngIf="submitted && productmasterFormControls.ProductName.errors.required">
+                                                Product Name is required</div>
+                                            <div
+                                                *ngIf="submitted && productmasterFormControls.ProductName.errors.pattern && productmasterFormControls.ProductName.dirty && productmasterFormControls.ProductName.invalid">
+                                                Special Characters are not allowed.</div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="row form-group">
+                                    <label class="col-sm-4 col-form-label" >Product Desc</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" formControlName="ProductDescription" class="form-control"
+                                            [ngClass]="{ 'is-invalid': submitted && productmasterFormControls.ProductDescription.errors }"/>
+                                    </div>
+
+                                </div>
+
+                                <div class="row form-group">
+                                    <label class="col-sm-4 col-form-label" name="inputEmail3">Category Code
+                                        </label>
+                                    <div class="col-sm-6">
+                                        <select class="form-control select2bs4 select2-hidden-accessible"
+                                            style="width: 100%;" formControlName="assetCategorySelCode"
+                                            name="assetCategorySelCode">
+                                            <option selected="selected"></option>
+                                            <option *ngFor="let x of assetCategoryCodes" value="{{ x.assetCategoryId }}">
+                                                {{ x.assetCategoryCode }} - {{ x.assetCategoryName }}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="row form-group">
+                                    <label class="col-sm-4 col-form-label" name="inputEmail3">Sub Category Code
+                                        *</label>
+                                    <div class="col-sm-6">
+                                        <select class="form-control select2bs4 select2-hidden-accessible"
+                                            style="width: 100%;" formControlName="assetSubCategorySelCode"
+                                            [ngClass]="{ 'is-invalid': submitted && productmasterFormControls.assetSubCategorySelCode.errors }"
+                                            name="assetSubCategorySelCode">
+                                            <option selected="selected"></option>
+                                            <option *ngFor="let x of assetSubCategoryCodes" value="{{ x.assetSubCategoryId }}">
+                                                {{ x.assetSubCategoryCode }} - {{ x.assetSubCategoryName }}
+                                            </option>
+                                        </select>
+
+                                        <div *ngIf="submitted && productmasterFormControls.assetSubCategorySelCode.errors"
+                                            class="invalid-feedback">
+                                            <div
+                                                *ngIf="submitted && productmasterFormControls.assetSubCategorySelCode.errors.required">
+                                                Category Code is required</div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row form-group ">
+                                    <label class="col-sm-4 col-form-label" >UOM
+                                        Code</label>
+                                    <div class="col-sm-6">
+                                        <select class="form-control select2bs4 select2-hidden-accessible"
+                                            style="width: 100%;" formControlName="UOMSelCode" name="UOMSelCode">
+                                            <option selected="selected"></option>
+                                            <option *ngFor="let x of uomcodes" value="{{ x.value }}">
+                                                {{ x.value }} - {{ x.displayText }}
+                                            </option>
+                                        </select>
+                                       
+                                    </div>
+                                </div>
+
+
+
+
+                            </div>
+
+                            <!-- /.card-body -->
+
+                            <!-- /.row -->
+
+                            <div class="card-footer" style="align-content: center;">
+                                <button type="button" (click)="SaveProductMaster()"
+                                    [disabled]="loading || isbtnSaveDisabled"
+                                    class="btn btn-success btn-sm mr-1 ml-1 mt-2 mb-2">
+                                    <!-- <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1 mb-1"></span> -->
+                                    Save
+                                </button>
+                                <button type="button" (click)="ShowGrid()"
+                                    class="btn btn-info btn-sm mr-1 ml-1 mt-2 mb-2">
+                                    Back
+                                </button>
+                                <button type="button" (click)=ClearContents() [disabled]="isbtnClearDisabled"
+                                    class="btn btn-info btn-sm mr-1 ml-1 mt-2 mb-2">
+                                    Clear
+                                </button>
+                                <div *ngIf="error" style="color: red;font-weight: bold;">{{error}}</div>
+                            </div>
+                        </form>
+
+
+                    </div>
+
+                </div>
+
+            </section>
+        </div>
+    </div>
+</div>

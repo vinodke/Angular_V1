@@ -1,0 +1,61 @@
+
+          <div class="card card-info">
+            <div class="card-header">
+              <h3 class="card-title">UOM Master</h3>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+            <form [formGroup]="UOMMasterForm" class="form-horizontal">
+              
+                <div class="card-body col-sm-8">
+                  <div class="row form-group">
+                    <label class="col-sm-4 col-form-label" for="inputEmail3">UOM Code *</label>
+                    <div class="col-sm-6">
+                      <input type="text" formControlName="UOMCode" class="form-control" maxlength="50"
+                       [ngClass]="{ 'is-invalid': submitted && UOMMasterFormControls.UOMCode.errors }"
+                      pattern="^[a-zA-Z0-9\s]+$" />
+                      <div *ngIf="submitted && UOMMasterFormControls.UOMCode.errors" class="invalid-feedback">
+                                  <div *ngIf="UOMMasterFormControls.UOMCode.errors.required">UOM Code is required</div>
+                                  <div *ngIf="UOMMasterFormControls.UOMCode.errors.pattern && UOMMasterFormControls.UOMCode.dirty && UOMMasterFormControls.UOMCode.invalid">Special Characters are not allowed.</div>
+                              </div>
+                    </div>
+                  
+                  </div>
+  
+                  <div class="row form-group">
+                    <label class="col-sm-4 col-form-label" for="inputEmail3">UOM Name *</label>
+                    <div class="col-sm-6">
+                      <input type="text" formControlName="UOMName" class="form-control"  maxlength="100"
+                       [ngClass]="{ 'is-invalid': submitted && UOMMasterFormControls.UOMName.errors }"
+                      pattern="^[a-zA-Z0-9\s]+$"/>
+                      <div *ngIf="submitted && UOMMasterFormControls.UOMName.errors" class="invalid-feedback">
+                                      <div *ngIf="UOMMasterFormControls.UOMName.errors.required">UOM Name is required</div>
+                                      <div *ngIf="UOMMasterFormControls.UOMName.errors.pattern && UOMMasterFormControls.UOMName.dirty && UOMMasterFormControls.UOMName.invalid">Special Characters are not allowed.</div>
+                                  </div>
+                    </div>
+                  </div>
+  
+                <!-- /.card-body -->
+          
+              <!-- /.row -->
+  
+              <div class="card-footer" style="align-content: center;">
+                <button type="button" (click)="SaveUOMMaster()" [disabled]="loading || isbtnSaveDisabled"
+                  class="btn btn-success btn-sm mr-1 ml-1 mt-2 mb-2">
+                  <!-- <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1 mb-1"></span> -->
+                  Save
+                </button>
+                <button type="button" (click)="ShowGrid()" class="btn btn-primary btn-sm mr-1 ml-1 mt-2 mb-2">
+                  Back
+                </button>
+                <button type="button" (click)=ClearContents() [disabled]="isbtnClearDisabled" class="btn btn-info btn-sm mr-1 ml-1 mt-2 mb-2">
+                  Clear
+                </button>
+                <div *ngIf="error" style="color: red;font-weight: bold;">{{error}}</div>
+              </div>
+                </div>
+            </form>
+  
+  
+          </div>
+  

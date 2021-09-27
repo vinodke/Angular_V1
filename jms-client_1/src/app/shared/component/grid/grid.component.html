@@ -1,0 +1,4 @@
+<ag-grid-angular #agGrid style="width: 100%; height: calc(100% - 75px);" class="ag-theme-alpine" [rowData]="rowData" [columnDefs]="columnDefs" rowSelection="single" cellSelection="none" animateRows=true suppressCellSelection="true" (rowClicked)="onRowClick($event)"
+                 (onGridReady)="onGridReady($event)"  (selectionChanged) ="onSelectionChanged($event)" nFirstDataRendered="onFirstDataRendered">
+
+</ag-grid-angular>

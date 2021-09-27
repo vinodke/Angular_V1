@@ -1,0 +1,617 @@
+<div class="wrapper" style="height: auto; min-height: 100%;">
+    <div class="content-wrapper">
+        <section class="content" style="padding: 1%;">
+          <div class="card card-info">
+            <div class="card-body col-md-12" >
+<div class="row">
+    <div class="col-5 col-sm-2">
+      <div class="nav flex-column nav-tabs h-100" id="vert-tabs-tab" role="tablist" aria-orientation="vertical">
+        <a class="nav-link active" id="vert-tabs-home-tab" data-toggle="pill" href="#vert-tabs-home" role="tab" aria-controls="vert-tabs-home" aria-selected="false">Sale</a>
+        <a class="nav-link" id="vert-tabs-profile-tab" data-toggle="pill" href="#vert-tabs-profile" role="tab" aria-controls="vert-tabs-profile" aria-selected="false">Open/Close</a>
+        <a class="nav-link" id="vert-tabs-messages-tab" data-toggle="pill" href="#vert-tabs-messages" role="tab" aria-controls="vert-tabs-messages" aria-selected="false">Cash Management</a>
+        <a class="nav-link" id="vert-tabs-settings-tab" data-toggle="pill" href="#vert-tabs-settings" role="tab" aria-controls="vert-tabs-settings" aria-selected="true">Settings</a>
+      </div>
+    </div>
+    <div class="col-7 col-sm-9">
+      <div class="tab-content" id="vert-tabs-tabContent">
+        <div class="tab-pane text-left fade  active show" id="vert-tabs-home" role="tabpanel" aria-labelledby="vert-tabs-home-tab">
+          <form [formGroup]="saleForm" class="form-horizontal">
+          <jw-modal id="custom-modal-2" >
+            <!-- <h3>{{modalHeading}}</h3> -->
+            <!-- <button  (click)="closeModal('custom-modal-2');" class="closebutton" data-toggle="tooltip" data-placement="top" title="Close" >X</button> -->
+            <button type="button" (click)="closeModal('custom-modal-2');" class="close"  data-toggle="tooltip" data-placement="top" title="Close">&times;</button>
+            <org-fat-customermasterform [routetype]="true" [hidden]="!iscustomer" class="content-wrapper popupside"></org-fat-customermasterform>                           
+<!-- <div class="row" style="display:flex; justify-content:flex-end; width:100%; padding:0;" >
+<button type="button" 
+class="btn btn-danger btn-sm" >
+Close
+</button>
+</div> -->
+
+           
+            
+        </jw-modal>
+        <jw-modal id="custom-modal-1" >
+          <!-- <h3>{{modalHeading}}</h3> -->
+          <!-- <button  (click)="closeModal('custom-modal-2');" class="closebutton" data-toggle="tooltip" data-placement="top" title="Close" >X</button> -->
+          <button type="button" (click)="closeModal('custom-modal-1');" class="close"  data-toggle="tooltip" data-placement="top" title="Close">&times;</button>
+         
+      </jw-modal>
+<div class="row" [hidden]="isPaytoContinue">
+  <div class="col-md-7">
+            <div class="row">
+              <div class="col-sm-3.5">
+                <button type="Clear" class="btn btn-primary pull-right">
+                  <i class="fas fa-share"></i>
+                  Retrieve Sale</button>
+              </div>
+              <div class="col-sm-3.5">
+                <button type="Clear" class="btn btn-primary">
+                  <i class="fas fa-clock"></i>
+                  Park Sale</button>
+              </div>
+                  <div class="col-sm-3.5"  >
+                    <button type="Clear" class="btn btn-primary" (click)="MoreActions()" data-toggle="moreactionspopover" data-trigger="click" aria-describedby="moreactionspopover">
+                        <i class="fas fa-caret-down"></i>
+                        More Actions</button>
+                      
+                            <div [hidden]="!ismoreactions" id="moreactionspopover" class="popover bs-popover-bottom">
+                              <div class="arrow"></div>
+                              <!-- <h3 class="popover-header">Select Item</h3> -->
+                              <div class="popover-body">
+                                  <div class="row form-group">
+                                    <button type="Clear" class="btn btn-info" >
+                                        Quote Sale</button>
+                                  </div>
+                                  <div class="row form-group">
+                                    <button type="Clear" class="btn btn-info" >
+                                        Discard Sale</button>
+                                  </div>
+                              </div>
+                            </div>
+                  </div>
+                        
+            </div>
+            <br>
+            <div class="row">
+              <div class="col">
+                <div class="row form-group">
+                  <label class="col-sm-4 form-label"  >Store *
+                      </label>
+                      <div class="col-sm-12"  >
+                        <select class="form-control select2bs4 select2-hidden-accessible"
+                        style="width: 100%;" formControlName="WarehouseSelCode"
+                        [ngClass]="{ 'is-invalid': submitted && saleFormControls.WarehouseSelCode.errors }"
+                        name="WarehouseSelCode">
+                        <option selected="selected"></option>
+                        <option *ngFor="let x of warehouses" value="{{ x.id }}">
+                            {{ x.warehouseCode }} - {{ x.warehouseName }}
+                        </option>
+                    </select>
+                      </div>
+                      <div *ngIf="saleFormControls.WarehouseSelCode.errors"
+                      class="invalid-feedback">
+                      <div
+                          *ngIf="submitted && saleFormControls.WarehouseSelCode.errors.required">
+                          Store is required</div>
+  
+                  </div>
+              </div>
+              </div>
+              <div class="col">
+                <div class="row form-group">
+                  <label class="col-sm-6 form-label"  >Cash Counter *
+                      </label>
+                      <div class="col-sm-12"  >
+                        <select class="form-control select2bs4 select2-hidden-accessible"
+                        style="width: 100%;" formControlName="CashCounterSelCode"
+                        [ngClass]="{ 'is-invalid': submitted && saleFormControls.CashCounterSelCode.errors }"
+                        name="CashCounterSelCode">
+                        <option selected="selected"></option>
+                        <option *ngFor="let x of cashcounters" value="{{ x.id }}">
+                            {{ x.cashCounterName }}
+                        </option>
+                    </select>
+                      </div>
+                      <div *ngIf="saleFormControls.CashCounterSelCode.errors"
+                                                  class="invalid-feedback">
+                                                  <div
+                                                      *ngIf="submitted && saleFormControls.CashCounterSelCode.errors.required">
+                                                      Cash Counter is required</div>
+  
+                                              </div>
+              </div>
+              </div>
+              
+              
+            </div>
+            <div class="row">
+              <label class="form-label">Search for customer</label>
+              <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-search"></i></span>
+                  </div>
+                  <input type="text" formControlName="SearchCustomer" class="form-control" style="height:calc(2.25rem + 12px) !important"
+                 title="" (keyup)="togglecustomer($event)" 
+                   placeholder="Start typing contact number or name"  [ngClass]="{ 'is-invalid': customernotselected}">
+                   <div *ngIf="customernotselected"
+                   class="invalid-feedback">
+                   <div
+                       *ngIf="customernotselected">
+                       Customer not selected</div>
+               </div>
+                  
+                   <button type="button" (click)="showForm('custom-modal-2','customer')"
+                   class="btn btn-info" >
+                   <i class="fa fa-plus"></i>
+               </button>
+                </div>
+              </div>
+              <div class="row">
+                <div [hidden]="!iscustomerexpanded" class="example example-popover" id="itemspopovercustomer" data-original-title="" title="">
+                 <button type="button" class="btn btn-primary sr-only">
+                   Items
+                 </button>
+                 <div class="popover bs-popover-bottom popover-primary">
+                   <div class="arrow"></div>
+                   <h3 class="popover-header">Select Customer</h3>
+                   <div class="popover-body">
+                     <ag-grid-angular #agCustomerGrid style="width: 30vw; height: 20vw;padding-left: 5px;" class="ag-theme-alpine"
+                      [columnDefs]="columnCustomerDefs" rowSelection="single"  rowHeight="50" [rowData]="customerList"
+                      (rowClicked)="onCustomerRowClick($event)"
+                     cellSelection="none" animateRows="true" defaultColDef="defaultColDef" 
+                     suppressCellSelection="true">
+                 </ag-grid-angular>
+                   </div>
+                 </div>
+               </div>
+             </div>
+            <div class="row">
+            <label class="form-label">Search for items</label>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fas fa-search"></i></span>
+                </div>
+                <input type="text" formControlName="SearchItem" class="form-control" style="height:calc(2.25rem + 12px) !important" 
+               title="" (keyup)="toggleitem($event)" 
+               
+                 placeholder="Start typing or scanning">
+              </div>
+              <div *ngIf="itemError" style="color: red;font-weight: bold;">{{itemError}}</div>
+            </div>
+            <div class="row">
+                       <div [hidden]="!isitemexpanded" class="example example-popover" id="itemspopover" data-original-title="" title="">
+                        <button type="button" class="btn btn-primary sr-only">
+                          Items
+                        </button>
+                        <div class="popover bs-popover-bottom popover-primary">
+                          <div class="arrow"></div>
+                          <h3 class="popover-header">Select Item</h3>
+                          <div class="popover-body">
+                            <ag-grid-angular #agGrid style="width: 30vw; height: 16vw;padding-left: 5px;" class="ag-theme-alpine"
+                             [columnDefs]="columnItemDefs" rowSelection="single"  rowHeight="50" [rowData]="rowData"
+                             (rowClicked)="onRowClick($event)"
+                            cellSelection="none" animateRows="true" defaultColDef="defaultColDef" 
+                            suppressCellSelection="true">
+                        </ag-grid-angular>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row" style="height: 300px !important; overflow: auto;">
+                        <!-- <ag-grid-angular #agItemAddGrid style="width: 80vw; height: 20vw;padding-left: 5px;" class="ag-theme-alpine"
+                        [columnDefs]="columnItemAddDefs"   rowHeight="50" [rowData]="rowAddData"
+                        (rowClicked)="onAddRowClick($event)" 
+                       animateRows="true" defaultColDef="defaultColDef"
+                       [singleClickEdit]="true" 
+                      >
+                   </ag-grid-angular> -->
+                  
+                  
+
+                   <table style="height: fit-content;" class="table"  id="mygroup">
+                     <tbody style="height: fit-content;">
+                       <tr style="height: fit-content;" *ngFor="let x of rowAddData;let indexOfelement=index;" >
+                         <td style="height: fit-content;">
+                          <div class="card card-default" 
+                          >
+                            <div class="card-header"  >
+                              <!-- <i class="fas fa-arrow-right float-left" style="justify-content: center;"></i> -->
+                              <!-- <button type="button"  class="btn btn-sm btnarrowicon text-left float-left"
+                              id="{{'hf' + indexOfelement}}" 
+                               >
+                                <i class="fas fa-arrow-down"></i>
+                              </button> -->
+                              <h3 class="card-title"
+                              data-toggle="collapse"
+                            attr.data-target="{{'#cf' + indexOfelement}}"
+                            aria-expanded="false" 
+                            attr.aria-controls="{{'cf' + indexOfelement}}"
+                              >   
+                              
+                              <label class="form-label hoverlabel" 
+                              >Tag#:
+                              </label> {{x.serialNumber}} 
+                                <br>
+                                <label class="form-label hoverlabel" >Item:
+                                </label> {{x.itemName}}
+                                <br>
+                                <label class="form-label hoverlabel" >Gold Wg:
+                                </label> {{x.goldWeight}}
+                                <label class="form-label hoverlabel" >Stone Wg:
+                                </label> {{x.stoneWeight}}
+                                <label class="form-label hoverlabel" >Price:
+                                </label> SAR {{x.Price}}
+                              </h3>
+                              
+                            </div>
+                            <!-- /.card-header -->
+                            <div id="{{'cf' + indexOfelement}}" class="collapse" 
+                            attr.aria-labelledby="{{'hf' + indexOfelement}}" 
+                            data-parent="#mygroup">
+                            <div class="card-body" style="display: block;">
+                              <div class="row form-group">
+                                <label class="form-label col-sm-1.5" >Gold Wg: 
+                                </label>
+                                <input class="form-control col-sm-3 form-control-lg" id="goldWeight-{{indexOfelement}}"  name="GoldWeight-{{indexOfelement}}" (keyup)="enterGoldWeight($event,x,indexOfelement)" 
+                                 value={{x.goldWeight}} type="text" 
+                                pattern="[0-9]+([\.,][0-9]+)?"
+                                [ngClass]="{ 'is-invalid': goldnonnumber}"
+                                 >
+                                 <div *ngIf="goldnonnumber"
+                                 class="invalid-feedback">
+                                 <div
+                                     *ngIf="goldnonnumber">
+                                      Characters are not allowed.</div>
+                             </div>&nbsp;
+                                <label class="form-label" >Stone Wg: 
+                                </label>
+                                <input class="form-control col-sm-3 form-control-lg" id="stoneWeight-{{indexOfelement}}"  pattern="[0-9]+([\.,][0-9]+)?"  [ngClass]="{ 'is-invalid': stonenonnumber}"
+                                (keyup)="enterStoneWeight($event)" value={{x.stoneWeight}} type="text">
+                                <div *ngIf="stonenonnumber"
+                                 class="invalid-feedback">
+                                 <div
+                                     *ngIf="stonenonnumber">
+                                      Characters are not allowed.</div>
+                             </div>
+                            </div>
+                            <div class="row form-group">
+                              <label class="form-label col-sm-1.5" >Discount: 
+                              </label>
+                              <input class="form-control col-sm-3 form-control-lg" id="discountPerc-{{indexOfelement}}"
+                              pattern="[0-9]+([\.,][0-9]+)?"  [ngClass]="{ 'is-invalid': discountpercnumber}"
+                              value={{x.discountPercentage}}
+                              (keyup)="enterDiscountPercentage($event,x,indexOfelement)"  type="text" placeholder="%">
+                              <div *ngIf="discountpercnumber"
+                              class="invalid-feedback">
+                              <div
+                                  *ngIf="discountpercnumber">
+                                   Characters are not allowed.</div>
+                          </div>
+                              &nbsp;
+
+                              <input class="form-control col-sm-3 form-control-lg" id="discountAmount-{{indexOfelement}}"
+                              pattern="[0-9]+([\.,][0-9]+)?"  [ngClass]="{ 'is-invalid': discountamountnumber}"
+                              value={{x.discountAmount}}
+                              (keyup)="enterDiscountAmount($event,x,indexOfelement)"  type="text" placeholder="SAR">
+                              <div *ngIf="discountamountnumber"
+                              class="invalid-feedback">
+                              <div
+                                  *ngIf="discountamountnumber">
+                                   Characters are not allowed.</div>
+                          </div>
+                          &nbsp;
+                          <button type="button" (click)="UpdateRowItem(x,indexOfelement)"
+                          class="btn btn-info" style="width: 100px;">
+                          <i class="fa fa-sync-alt"></i>
+                      </button>
+                          </div>
+                            </div>
+                          </div>
+                            <!-- /.card-body -->
+                          </div>
+                         </td>
+                         <td style="vertical-align: middle;">
+                          <button type="button"  (click)="RemoveItem(indexOfelement)"  class="btn btn-lg btn-danger" >
+                            <i class="fas fa-trash-alt"></i>
+                          </button>
+                         </td>
+                       </tr>
+                     </tbody>
+                   </table>
+                    </div>
+
+                   
+                  </div>
+                  <div class="col-md-5" style="float: right !important;width: 100%;padding-left: 50px;">
+                    <div class="card card-info" style="width: fit-content;">
+                      <div class="card-body"   >
+                    <div class="row">
+                      <div class="col">
+                        <div class="row form-group">
+                          <label class="col-sm-4 form-label"  >Sales Man *
+                              </label>
+                              <div class="col-sm-6"  >
+                                <select class="form-control select2bs4 select2-hidden-accessible"
+                                style="width: 100%;" formControlName="EmployeeSelCode"
+                                [ngClass]="{ 'is-invalid': submitted && saleFormControls.EmployeeSelCode.errors }"
+                                name="EmployeeSelCode">
+                                <option selected="selected"></option>
+                                <option *ngFor="let x of employees" value="{{ x.id }}">
+                                    {{ x.employeeCode}} - {{x.employeeName}}
+                                </option>
+                            </select>
+                              </div>
+                              <div *ngIf="saleFormControls.EmployeeSelCode.errors"
+                                                          class="invalid-feedback">
+                                                          <div
+                                                              *ngIf="submitted && saleFormControls.EmployeeSelCode.errors.required">
+                                                              Sales man is required</div>
+          
+                                                      </div>
+                      </div>
+                          <div class="row form-group">
+                            <label class="col-sm-4 form-label" >Sub Total
+                                </label>
+                                <div class="col-sm-4">
+                                   SAR {{SubTotal}}
+                                </div>
+                        </div>
+                        <!-- <div class="row form-group">
+                            <label class="col-sm-4 form-label" >Discount
+                            </label>
+                            <input type="text" formControlName="DiscountPercentage" class="form-control col-sm-2"  placeholder="%"
+                            pattern="^\d+$"/> &nbsp;
+                            <input type="text" formControlName="DiscountAmount" class="form-control col-sm-2" placeholder="SAR" 
+                            pattern="^\d+$"/>
+                        </div> -->
+                        <div class="row form-group">
+                          <label class="col-sm-4 form-label" >Discount
+                          </label>
+                          <div class="col-sm-4">
+                            SAR {{discountTotalDis}}
+                        </div>
+                        
+                      </div>
+                        <div class="row form-group">
+                            <label class="col-sm-4 form-label" >Tax
+                            </label>
+                            <div class="col-sm-4">
+                              SAR {{TaxAmount}}
+                          </div>
+                          
+                        </div>
+                      </div>
+                      <div class="col" style="justify-content: right;display: flex;align-items: right;">
+                        <div class="row form-group">
+                          <div *ngIf="payItemError" style="color: red;font-weight: bold;">{{payItemError}}</div>
+                        
+                          <button type="submit" [disabled]="!itemAdded" (click)="selectPaymentMethod()" style="width: 400px !important;height: 75px !important;"  class="col-sm-12 btn btn-lg btn-success">
+                              <!-- <i class="fa fa-dollar" ></i> -->
+                              <span style="float: left;">Pay {{totalItems}} items</span>
+                              <span style="float: right;">SAR {{SubTotal}}</span> 
+                            </button>
+                      </div>
+                      </div>
+                    </div>
+                  </div>
+                  </div>
+                  </div>
+                  </div>
+<div  [hidden]="!isPaytoContinue">
+  <!-- <div class="card card-info" style="width: 100%;"> -->
+   
+    <!-- /.card-header -->
+    <!-- form start -->
+            <!-- <div class="row"> -->
+              <!-- <div class="col-md-2" style="max-width:fit-content !important">
+               
+              </div> -->
+            <div class="col-md-4" >
+              <button type="button" (click)="BacktoInvoice()" class="btn"  title="Back">
+                <i class="fas fa-arrow-left"></i>
+              </button>
+              <div  style="height: 525px !important; overflow: auto;">
+              <div class="form-group">
+             <table  class="table"  id="mygroup">
+               <tbody >
+                 <tr  *ngFor="let x of rowAddData;let indexOfelement=index;" >
+                   <td >
+                    <div class="card card-default" 
+                    >
+                      <div class="card-header"  >
+                        <h3 class="card-title"
+                        >   
+                        
+                        <label class="form-label hoverlabel" 
+                        >Tag#:
+                        </label> {{x.serialNumber}} 
+                          <br>
+                          <label class="form-label hoverlabel" >Item:
+                          </label> {{x.itemName}}
+                          <br>
+                          <label class="form-label hoverlabel" >Gold Wg:
+                          </label> {{x.goldWeight}}
+                          <label class="form-label hoverlabel" >Stone Wg:
+                          </label> {{x.stoneWeight}}
+                          <label class="form-label hoverlabel" >Price:
+                          </label> SAR {{x.Price}}
+                        </h3>
+                        <!-- <div class="card-tools">
+                         &nbsp;
+                          <button type="button"  (click)="RemoveItem(indexOfelement)"  class="btn btn-lg btn-danger" >
+                            <i class="fas fa-trash-alt"></i>
+                          </button>
+                        </div> -->
+                      </div>
+                      <!-- /.card-header -->
+                      <!-- /.card-body -->
+                    </div>
+                   </td>
+                 </tr>
+               </tbody>
+             </table>
+              </div>
+              <hr class="mt-3 mb-3"/>
+              <div class="form-group">
+                
+              </div>
+              <div class="form-group">
+                
+              </div>
+            </div>
+            </div>
+             
+            <div class="col-md-8">
+              <div  style="height: 625px !important; overflow: auto;float: right !important;width: 100%;padding-left: 100px;">
+                <div class="card card-info" >
+                  <div class="card-body"   >
+                    <div class="form-group">
+                      <div class="row form-group">
+                        <label class="col-sm-5 form-label"  >Customer
+                            </label>
+                            <div class="col-sm-7"  >
+                              {{CustomerSelected}}
+                            </div>
+                    </div>
+                      <div class="row form-group">
+                        <label class="col-sm-5 form-label"  >Total Items
+                            </label>
+                            <div class="col-sm-7"  >
+                              {{totalItems}}
+                            </div>
+                    </div>
+                      <div class="row form-group">
+                        <label class="col-sm-5 form-label"  >Sale Total
+                            </label>
+                            <div class="col-sm-7"  >
+                               SAR {{SubTotal}}
+                            </div>
+                    </div>
+                    <div class="row form-group">
+                      <label class="col-sm-5 form-label"  >Discount
+                      </label>
+                      <div class="col-sm-7"  >
+                        SAR {{discountTotalDis}}
+                    </div>
+                  </div>
+                    <div class="row form-group">
+                        <label class="col-sm-5 form-label" >Tax
+                        </label>
+                        <div class="col-sm-7" >
+                          SAR {{TaxAmount}}
+                      </div>
+                      
+                    </div>
+              </div>
+              <hr class="mt-3 mb-3"/>
+              <div class="form-group">
+                <div class="row form-group">
+                  <label class="col-sm-5 form-label" style="display: flex;align-items: center;" >Amount to Pay
+                  </label>
+                  <div class="col-sm-7" >
+                    <div class="row">
+                      <input type="text" style="height:calc(2.25rem + 20px) !important" formControlName="AmounttoPay"
+                       (keyup)="IntcalculatePaymentLeft()" class="form-control" value="{{SubTotal}}" [ngClass]="{ 'is-invalid': isAmounttoPayInvalid}">
+                       <div *ngIf="isAmounttoPayInvalid"
+                       class="invalid-feedback">
+                       <!-- <div
+                           *ngIf="isAmounttoPayInvalid">
+                           Customer not selected</div> -->
+                   </div>
+                    </div>
+                    <div class="row">
+                      <p>{{amounttopaytext}}</p>
+                    </div>
+                </div>
+                
+              </div>
+              <div class="row form-group">
+                <label class="col-sm-5 form-label" style="display: flex;align-items: center;" >Payment Method
+                </label>
+                <div class="col-sm-7">
+                  <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" 
+                    style="height: 60px;width: 200px !important;"
+                    id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      select
+                    </button>
+                    <div class="dropdown-menu"  aria-labelledby="dropdownMenuButton">
+                      <button style="height: 60px;width: 200px !important;" *ngFor="let x of paymentMethods;let indexofpaymentmethod=index" (click)="paymentMethodClicked(x)" class="dropdown-item btn btn-lg">{{x.paymentMethodName}}</button>
+                    </div>
+                  </div>
+              </div>
+            </div>
+            <div class="row form-group">
+              <table class="table table-bordered">
+                <thead>
+                  <th>
+                    Pay Method
+                  </th>
+                  <th>
+                    Amount
+                  </th>
+                  <th>
+                    
+                  </th>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let x1 of salePaymentMethods;let indexofSalepayhod=index">
+                    <td>
+{{x1.paymentMethodName}}
+                    </td>
+                    <td>
+                      {{x1.recievedAmount}}
+                    </td>
+                    <td>
+                      <button type="button"  (click)="RemovePayMethod(x1,indexofSalepayhod)"  class="btn btn-lg btn-danger" >
+                        <i class="fas fa-trash-alt"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+          </div>
+              </div>
+                    <div class="row form-group">
+                    
+                    <div *ngIf="completeSaleError" style="color: red;font-weight: bold;">{{completeSaleError}}</div>
+                      <button type="submit"  [disabled]="loading"
+                       style="width: 400px !important;height: 75px !important;" (click)="completeSale()"  class="col-sm-12 btn btn-lg btn-success">
+                          <!-- <i class="fa fa-dollar" ></i> -->
+                          <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1 mb-1"></span>
+                          <span >Complete Sale</span>
+                        </button>
+                  </div>
+                  <!-- </div> -->
+                <!-- </div> -->
+               
+              </div>
+              </div>
+              </div>
+            </div>
+            <!-- </div>                            -->
+
+<!-- </div> -->
+</div>
+                 
+
+                  </form>    
+        </div>
+        <div class="tab-pane fade" id="vert-tabs-profile" role="tabpanel" aria-labelledby="vert-tabs-profile-tab">
+          Open or Close Daily Cash Register
+        </div>
+        <div class="tab-pane fade" id="vert-tabs-messages" role="tabpanel" aria-labelledby="vert-tabs-messages-tab">
+           Petty cash or other cash received
+        </div>
+        <div class="tab-pane fade" id="vert-tabs-settings" role="tabpanel" aria-labelledby="vert-tabs-settings-tab">
+           Settings
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</section>
+</div>
+</div>

@@ -1,0 +1,137 @@
+<div style="height: auto;">
+    <div class="wrapper" style="height: auto; min-height: 100%;">
+        <div class="content-wrapper">
+            <section class="content" style="padding: 1%;">
+                <!-- left column -->
+                <!-- general form elements -->
+                <div class="col-md-12">
+                    <div class="card card-info">
+                        <div class="card-header">
+                            <h3 class="card-title">Floor Master</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <!-- form start -->
+                        <form [formGroup]="floormasterform" class="form-horizontal">
+
+                            <div class="card-body col-md-12">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="row form-group ">
+                                            <label class="col-sm-4 col-form-label" >Site
+                                                Code</label>
+                                            <div class="col-sm-6">
+                                                <select class="form-control select2bs4 select2-hidden-accessible"
+                                                    style="width: 100%;" formControlName="siteSelCode"
+                                                    [ngClass]="{ 'is-invalid': submitted && floormasterFormControls.siteSelCode.errors }"
+                                                    name="siteSelCode">
+                                                    <option selected="selected"></option>
+                                                    <option *ngFor="let x of sitecodes" value="{{ x.siteID }}">
+                                                        {{ x.siteCode }} - {{ x.siteName }}
+                                                    </option>
+                                                </select>
+                                                <!-- <div *ngIf="floormasterFormControls.buildingSelCode.errors" class="invalid-feedback">
+                                            <div *ngIf="submitted && floormasterFormControls.buildingSelCode.errors.required">Building Code is required</div>
+                                        
+                                            </div> -->
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="row form-group">
+                                            <label class="col-sm-4 col-form-label" >Floor Code
+                                                *</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" formControlName="FloorCode" class="form-control"
+                                                    [ngClass]="{ 'is-invalid': submitted && floormasterFormControls.FloorCode.errors }"
+                                                    pattern="^[a-zA-Z0-9\s]+$" />
+                                                <div *ngIf="floormasterFormControls.FloorCode.errors"
+                                                    class="invalid-feedback">
+                                                    <div
+                                                        *ngIf="submitted && floormasterFormControls.FloorCode.errors.required">
+                                                        Floor Code is required</div>
+                                                    <div
+                                                        *ngIf="floormasterFormControls.FloorCode.errors.pattern && floormasterFormControls.FloorCode.dirty && floormasterFormControls.FloorCode.invalid">
+                                                        Special Characters are not allowed.</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row form-group">
+                                            <label class="col-sm-4 col-form-label" >Floor Name
+                                                *</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" formControlName="FloorName" class="form-control"
+                                                    [ngClass]="{ 'is-invalid': submitted && floormasterFormControls.FloorName.errors }"
+                                                    pattern="^[a-zA-Z0-9\s]+$" />
+                                                <div *ngIf="floormasterFormControls.FloorName.errors"
+                                                    class="invalid-feedback">
+                                                    <div
+                                                        *ngIf="submitted && floormasterFormControls.FloorName.errors.required">
+                                                        Floor Name is required</div>
+                                                    <div
+                                                        *ngIf="floormasterFormControls.FloorName.errors.pattern && floormasterFormControls.FloorName.dirty && floormasterFormControls.FloorName.invalid">
+                                                        Special Characters are not allowed.</div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                    <div class="col">
+                                        <div class="row form-group">
+                                            <label class="col-sm-4 col-form-label" name="inputEmail3">Building Code
+                                                *</label>
+                                            <div class="col-sm-6">
+                                                <select class="form-control select2bs4 select2-hidden-accessible"
+                                                    style="width: 100%;" formControlName="buildingSelCode"
+                                                    [ngClass]="{ 'is-invalid': submitted && floormasterFormControls.buildingSelCode.errors }"
+                                                    name="buildingSelCode">
+                                                    <option selected="selected"></option>
+                                                    <option *ngFor="let x of buildingcodes" value="{{ x.buildingID }}">
+                                                        {{ x.buildingCode }} - {{ x.buildingName }}
+                                                    </option>
+                                                </select>
+
+                                                <div *ngIf="floormasterFormControls.buildingSelCode.errors"
+                                                    class="invalid-feedback">
+                                                    <div
+                                                        *ngIf="submitted && floormasterFormControls.buildingSelCode.errors.required">
+                                                        Building Code is required</div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- /.card-body -->
+
+                            <!-- /.row -->
+
+                            <div class="card-footer" style="align-content: center;">
+                                <button type="button" (click)="SaveFloorMaster()"
+                                    [disabled]="loading || isbtnSaveDisabled"
+                                    class="btn btn-success btn-sm mr-1 ml-1 mt-2 mb-2">
+                                    <!-- <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1 mb-1"></span> -->
+                                    Save
+                                </button>
+                                <button type="button" (click)="ShowGrid()"
+                                    class="btn btn-info btn-sm mr-1 ml-1 mt-2 mb-2">
+                                    Back
+                                </button>
+                                <button type="button" (click)=ClearContents() [disabled]="isbtnClearDisabled"
+                                    class="btn btn-info btn-sm mr-1 ml-1 mt-2 mb-2">
+                                    Clear
+                                </button>
+                                <div *ngIf="error" style="color: red;font-weight: bold;">{{error}}</div>
+                            </div>
+                        </form>
+
+
+                    </div>
+
+                </div>
+
+            </section>
+        </div>
+    </div>
+</div>
