@@ -110,7 +110,9 @@ export class GridComponent implements OnInit {
 
 
   async ngOnInit() {
-
+    this.route.params.subscribe(params => {
+      this.auditID= params.id;
+    });
     //this.agGrid.api.sizeColumnsToFit();
     
     switch (this.entity) {
@@ -274,10 +276,10 @@ export class GridComponent implements OnInit {
 debugger
         this.rowData = await this.auditMasterService.getAuditVerifyReport(this.auditID);
         this.rowData = this.rowData.locationMismatch;
-        this.subscription = this.auditMasterService.refreshClickevent.subscribe((e) => {
-          console.log(e)
-          this.OnRefreshCick();
-        });
+        // this.subscription = this.auditMasterService.refreshClickevent.subscribe((e) => {
+        //   console.log(e)
+        //   this.OnRefreshCick();
+        // });
         break;
       }
 

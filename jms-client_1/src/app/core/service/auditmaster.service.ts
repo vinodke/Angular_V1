@@ -15,6 +15,7 @@ import { AuditVerifyModel } from '../../shared/model/audit-verify-model';
 export class AuditmasterService {
 
   auditMasterDataCache: AuditMasterModel[] = [];
+  auditMasterVerifyCache: AuditVerifyModel[] = [];
   token = localStorage.getItem('access_token');
   auditMasterDataByKey!: AuditMasterModel;
   selectedrowevent = new Subject<any>();
@@ -49,13 +50,20 @@ export class AuditmasterService {
   }
 
   async getAuditVerifyReport(auditID: string) {
+    if (!(this.auditMasterVerifyCache.length > 0)) {
       const data = await this.http.post<AuditVerifyModel[]>(this.auditMasterUrl + '/GetAuditReport', {
         "auditID": auditID,
         "companyID": "HOST",
         "warehouseID": "1",
       },  this.httpOptions)
         .toPromise();
+
+        this.auditMasterVerifyCache = data;
       return data;
+    }
+    else {
+      return this.auditMasterVerifyCache;
+    }
   }
   async onRefreshAuditVerifyReport() {
       const data = await this.http.post<AuditVerifyModel[]>(this.auditMasterUrl + '/GetAuditReport', {

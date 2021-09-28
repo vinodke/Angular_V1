@@ -42,7 +42,7 @@ export class AuditmasterformComponent implements OnInit {
   AuditId!: string;
   error = '';
   editMode: boolean = false;
-  auditData!: AuditMasterModel;
+  public auditData!: AuditMasterModel;
   auditmastermodel: AuditMasterModel = new AuditMasterModel;
   selectedFile!: ImageSnippet;
   imageError!: string;
