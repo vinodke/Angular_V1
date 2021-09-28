@@ -120,9 +120,9 @@
   </div>
   <!-- /.card-header -->
   <!-- form start -->
-  <form [formGroup]="auditVerifyForm"  class="form-horizontal">
+  <form [formGroup]="auditVerifyForm" class="form-horizontal">
     <div style="align-content: center;margin-left: 15px;margin-top: 12px;">
-      <div class="row">
+      <!--<div class="row">
         <div class="col">
 
           <div class="row form-group">
@@ -141,11 +141,11 @@
           </div>
         </div>
 
-      </div>
+      </div>-->
       <div class="row">
 
       </div>
-      <button type="button" (click)="AuditDiscrepancy()" [disabled]="isRowUnSelected" class="btn btn-info btn-sm mr-1 ml-1 mt-2 mb-2">
+      <button type="button" (click)="AuditDiscrepancy()" class="btn btn-info btn-sm mr-1 ml-1 mt-2 mb-2">
         Discrepancy
       </button>
 
@@ -153,4 +153,11 @@
     </div>
   </form>
 </div>
-<org-fat-grid [entity]="name" (auditRowData)="getRowData($event)"></org-fat-grid>
+<ag-grid-angular #agGridVerify style="width: 100%; height: 100%; padding-left: 0px;" class="ag-theme-alpine"
+                 [columnDefs]="columnAuditVerifyDefs" [rowSelection]="rowSelection" rowHeight="50" [rowData]="rowData"
+                 (rowClicked)="onRePrintRowClick($event)"
+                 cellSelection="none" animateRows="true" defaultColDef="defaultColDef" suppressRowClickSelection="true"
+                 stopEditingWhenCellsLoseFocus=true>
+</ag-grid-angular>
+
+<!--<org-fat-grid [entity]="name" (auditRowData)="getRowData($event)" multiple="multiple"></org-fat-grid>-->

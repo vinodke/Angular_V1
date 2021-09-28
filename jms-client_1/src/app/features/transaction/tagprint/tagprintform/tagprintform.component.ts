@@ -59,12 +59,14 @@ export class TagprintformComponent implements OnInit {
   }
   onPrintRowClick(event:any)
   {
+    debugger
     this.isRowSelected=true;
   }
   get TagPrintFormControls() { return this.TagPrintForm.controls; }
 
  async ViewClicked()
-  {
+ {
+   debugger
     this.isSubmitted=false;
     if(this.TagPrintFormControls.DocumentNo.value==null || this.TagPrintFormControls.DocumentNo.value=='')
     {
@@ -77,6 +79,7 @@ export class TagprintformComponent implements OnInit {
 
   onRePrintRowClick(event:any)
   {
+    debugger
     this.isRePrintRowSelected=true;
   }
 
@@ -175,6 +178,7 @@ return zpl;
 
   PrintTag()
   {
+    debugger
     this.submitted=true;
     let selectedNodes = this.agGrid.api.getSelectedNodes();
     let selectedData = selectedNodes.map<PrintModel>(node => node.data);

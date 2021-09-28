@@ -254,16 +254,9 @@ export class GridComponent implements OnInit {
       }
 
       case 'auditmasterverify': {
-        debugger
-  //       this.route.queryParams
-  //   .subscribe(params => {
-  //     console.log(params); // { orderby: "price" }
-  //     this.auditID = params.auditID;
-  //   }
-  // );
 
         this.columnDefs = [
-          { field: 'auditID', sortable: true, filter: true, resizable: true },
+          { field: 'auditID', sortable: true, filter: true, resizable: true, checkboxSelection: true, multiple: true, width: 150 },
           { field: 'systemLocationCode', sortable: true, filter: true, resizable: true },
           
           { field: 'scanLocationCode', sortable: true, filter: true, resizable: true },
@@ -273,13 +266,8 @@ export class GridComponent implements OnInit {
           { field: 'itemCode', sortable: true, filter: true, resizable: true },
           { field: 'itemName', sortable: true, filter: true, resizable: true },
         ];
-debugger
         this.rowData = await this.auditMasterService.getAuditVerifyReport(this.auditID);
         this.rowData = this.rowData.locationMismatch;
-        // this.subscription = this.auditMasterService.refreshClickevent.subscribe((e) => {
-        //   console.log(e)
-        //   this.OnRefreshCick();
-        // });
         break;
       }
 
