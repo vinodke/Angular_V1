@@ -24,6 +24,7 @@ export class SidebarnavService {
 
  
   getSideNavItems() {
+    console.log(this.appRoleMenuURL);
     return this.http.get<SideMenuItems[]>(this.appRoleMenuURL, this.httpOptions);
   }
 

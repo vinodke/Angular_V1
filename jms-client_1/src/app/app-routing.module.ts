@@ -75,6 +75,7 @@ import { PaymentmethodgridComponent } from './features/master/paymentmethod/paym
 import { PaymentmethodformComponent } from './features/master/paymentmethod/paymentmethodform/paymentmethodform.component';
 import { AuditmasterformComponent } from './features/master/auditmaster/auditmasterform/auditmasterform.component';
 import { AuditmastergridComponent } from './features/master/auditmaster/auditmastergrid/auditmastergrid.component';
+import { AuditreportComponent } from './features/report/auditreport/auditreport.component';
 
 
 const routes: Routes = [
@@ -184,8 +185,10 @@ const routes: Routes = [
 { path: 'productmaster/add', component: ProductmasterformComponent, canActivate: [AuthGuard]},
 { path: 'productmaster/:state/:id', component: ProductmasterformComponent, canActivate: [AuthGuard]},
 { path: 'auditmaster', component: AuditmastergridComponent, canActivate: [AuthGuard]},
+
 { path: 'auditmaster/add', component: AuditmasterformComponent, canActivate: [AuthGuard]},
-{ path: 'auditmaster/:state/:id', component: AuditmasterformComponent, canActivate: [AuthGuard]},
+  { path: 'auditmaster/:state/:id', component: AuditmasterformComponent, canActivate: [AuthGuard] },
+  { path: 'auditreport', component: AuditreportComponent, canActivate: [AuthGuard] },
 // { path: 'receipt', component: ReceiptmastergridComponent, canActivate: [AuthGuard]},
 // { path: 'receipt/add', component: ReceiptmasterformComponent, canActivate: [AuthGuard]},
 // { path: 'receipt/:state/:id', component: ReceiptmasterformComponent, canActivate: [AuthGuard]},

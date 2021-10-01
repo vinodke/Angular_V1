@@ -1,0 +1,346 @@
+<div class="card card-info">
+  <div class="card-header">
+    <h3 class="card-title">Audit Report</h3>
+
+  </div>
+  <div class="card-body col-md-12">
+    <ul class="nav nav-tabs" id="custom-tabs-two-tab" role="tablist">
+      <li class="nav-item" *ngFor="let tab1 of tablist1;let indexOfelement=index;" (click)="SelectTab(tab1,indexOfelement)">
+        <a class="nav-link {{tab1.TabActive}}" id="{{tab1.TabName}}-tab" data-toggle="pill" href="#{{tab1.TabName}}" role="tab" attr.aria-controls="{{tab1.TabName}}" attr.aria-selected="{{tab1.TabSelected}}">{{tab1.TabText}}</a>
+      </li>
+      <!-- <li class="nav-item">
+        <a class="nav-link" id="custom-tabs-two-profile-tab" (click)="SelectTab('custom-tabs-two-profile')" data-toggle="pill" href="#{{selectedTab}}" role="tab" attr.aria-controls="{{selectedTab}}" aria-selected="false">Details Report</a>
+      </li> -->
+    </ul>
+    <div class="tab-content" style="height: 580px;" id="custom-tabs-two-tabContent">
+
+      <div class="tab-pane fade {{tab1}}" id="custom-tabs-two-home" role="tabpanel" aria-labelledby="custom-tabs-two-home-tab">
+        <form [formGroup]="AuditReportForm" class="form-horizontal">
+          <div class="row">
+            <div class="col">
+                <div class="row form-group">
+                    <label class="col-sm-4 col-form-label">From
+                                            Date *</label>
+                    <div class="col-sm-6">
+                        <div class="input-group date" id="fromDate" data-target-input="nearest">
+                            <input type="text" #fromDate class="form-control datetimepicker-input" [ngClass]="{ 'is-invalid': submitted && !fromDate.value }" name="fromDate" data-target="#fromDate" />
+                            <div class="input-group-append" data-target="#fromDate" data-toggle="datetimepicker">
+                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                            </div>
+                            <div *ngIf="submitted && !fromDate.value" class="invalid-feedback">
+                                From Date is required
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <label class="col-sm-4 col-form-label">Store/ Warehouse </label>
+                    <div class="col-sm-6">
+                        <select class="form-control select2bs4 select2-hidden-accessible" style="width: 100%;" formControlName="warehouseID" name="warehouseID">
+                            <option selected="selected"></option>
+                            <option *ngFor="let x of warehouseCodes" value="{{ x.id }}">
+                                {{ x.warehouseCode }} - {{ x.warehouseName }}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+
+                <div class="row form-group">
+                    <label class="col-sm-4 col-form-label">To
+                                            Date *</label>
+                    <div class="col-sm-6">
+                        <div class="input-group date" id="toDate" data-target-input="nearest">
+                            <input type="text" #toDate class="form-control datetimepicker-input" [ngClass]="{ 'is-invalid': submitted && !toDate.value }" name="toDate" data-target="#toDate" />
+                            <div class="input-group-append" data-target="#toDate" data-toggle="datetimepicker">
+                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                            </div>
+                            <div *ngIf="submitted && !toDate.value" class="invalid-feedback">
+                                To Date is required
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+
+                <div class="row form-group">
+                    <label class="col-sm-4 col-form-label">Audit ID </label>
+                    <div class="col-sm-6">
+                        <input type="text" formControlName="auditID" class="form-control" />
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+          
+          <div class="row form-group">
+            <button type="button" class="btn btn-info mr-1" (click)="ViewSummaryClicked()">
+              View
+            </button>
+            <button type="button" [disabled]="!auditReportSummary.length" class="btn btn-info mr-1" (click)="exportexcelsummary()">
+              Download as Excel
+            </button>
+            <button type="button" [disabled]="!auditReportSummary.length" class="btn btn-info mr-1" (click)="exportpdfsummary()">
+              Download as PDF
+            </button>
+            <button type="button" class="btn btn-info mr-1" (click)="ClearSummary()">
+              Clear
+            </button>
+          </div>
+          <div class="row form-group tableFixHead " id="excelsummarydiv">
+            <table class="table table-responsive table-bordered canvas_summary_pdf"
+            style="max-height: 460px; min-height: 460px;" id="excelsummary" #excelsummary>
+              <tbody>
+                <tr>
+                  <th>
+                    Store/Warehouse Code
+                  </th>
+                  <th>
+                    Audit ID
+                  </th>
+                  <th>
+                    Total Stock
+                  </th>
+                  <th>
+                    Found
+                  </th>
+                  <th>
+                    Misssing
+                  </th>
+                  <th>
+                    Location Mismatch
+                  </th>
+                  <th>
+                    Location Mismatch Approved
+                  </th>
+                  <th>
+                    Unknown
+                  </th>
+                  <th>
+                    Audit Planned Date
+                  </th>
+                  <th>
+                    Audit Created By
+                  </th>
+                  <th>
+                    Audit Created Date
+                  </th>
+                  <th>
+                    Audit Released By
+                  </th>
+                  <th>
+                    Audit Released Date
+                  </th>
+                  <th>
+                    Audit Closed By
+                  </th>
+                  <th>
+                    Audit Closed Date
+                  </th>
+                  <th>
+                    Audit Status
+                  </th>
+                  <th>
+                    Remark
+                  </th>
+                </tr>
+                <tr *ngFor="let x1 of auditReportSummary;let indexofsummary=index">
+                  <td>
+                    <a href="javascript:void(0)" style="text-decoration: underline;" (click)="ShowItemDetail(x1,indexofsummary)">{{x1.warehouseCode}}</a>
+                  </td>
+                  <td>
+                    {{x1.auditID}}
+                  </td>
+                  <td>
+                    {{x1.totalStock}}
+                  </td>
+                  <td>
+                    {{x1.found}}
+                  </td>
+                  <td>
+                    {{x1.missing}}
+                  </td>
+                  <td>
+                    {{x1.locationMismatch}}
+                  </td>
+                  <td>
+                    {{x1.locationMismatchApproved}}
+                  </td>
+                  <td>
+                    {{x1.missing}}
+                  </td>
+                  <td>
+                    {{x1.toBeAuditedOn}}
+                  </td>
+                  <td>
+                    {{x1.createdBy}}
+                  </td>
+                  <td>
+                    {{x1.createdDate}}
+                  </td>
+                  <td>
+                    {{x1.releasedBy}}
+                  </td>
+                  <td>
+                    {{x1.releasedDate}}
+                  </td>
+                  <td>
+                    {{x1.closedBy}}
+                  </td>
+                  <td>
+                    {{x1.closedDate}}
+                  </td>
+                  <td>
+                    {{x1.auditStatusText}}
+                  </td>
+                  <td>
+                    {{x1.remark}}
+                  </td>
+                  <!-- <td>
+                   <a href="javascript:void(0)" style="text-decoration: underline;" (click)="ShowItemDetail(x1,indexofsummary)">{{x1.auditID}}</a>
+                  </td> -->
+                </tr>
+              
+
+              </tbody>
+            </table>
+          </div>
+        </form>
+      </div>
+      <div class="tab-pane fade {{tab2}}" id="custom-tabs-two-profile" role="tabpanel" aria-labelledby="custom-tabs-two-profile-tab">
+        <form [formGroup]="AuditReportForm" class="form-horizontal">
+          <div class="row">
+            <div class="col">
+               
+                <div class="row form-group">
+                    <label class="col-sm-4 col-form-label">Status </label>
+                    <div class="col-sm-6">
+                        <select class="form-control select2bs4 select2-hidden-accessible" style="width: 100%;" formControlName="StatusID" name="StatusID">
+                            <option selected="selected"></option>
+                            
+                            <option value="Found">Found</option>
+                            <option value="Missing">Missing</option>
+                            <option value="Location Mismatch">Location Mismatch</option>
+                            <option value="Unknown">Unknown</option>
+                            <option value="Location">Location</option>
+                            <option value="Mismatch Approved">Mismatch Approved</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+               
+              <div class="row form-group">
+                  <label class="col-sm-6 col-form-label">Total Stock : {{totalCount}}</label>   
+                  <label class="col-sm-6 col-form-label">Found : {{foundCount}}</label>
+              </div>
+              <div class="row form-group">
+                <label class="col-sm-6 col-form-label">Missing:{{missingCount}} </label>
+                <label class="col-sm-6 col-form-label">Location Mismatch: {{locationMismatchCount}} </label>
+              </div>
+              
+          </div>
+
+
+        </div>
+        <div class="row">
+          <div class="col">
+                                
+                <div class="row form-group">
+                  <label class="col-sm-6 col-form-label">Unknown : {{unknownCount}}</label>
+                  <label class="col-sm-6 col-form-label">Location : {{locationCount}} </label>
+                </div>
+          </div>
+          <div class="col">
+            <div class="row form-group">
+              <label class="col-sm-6 col-form-label">Mismatch Approved: {{mismatchApprovedCount}} </label>
+            </div>
+        </div>
+
+
+      </div>
+          <div class="row form-group">
+            <button type="button" class="btn btn-info mr-1" (click)="ViewDetailClicked()">
+              View
+            </button>
+            <button type="button" [disabled]="!auditReportDetail.length" class="btn btn-info mr-1" (click)="exportexcelDetail()">
+              Download as Excel
+            </button>
+            <button type="button" [disabled]="!auditReportDetail.length" class="btn btn-info mr-1" (click)="exportpdfDetail()">
+              Download as PDF
+            </button>
+            <button type="button" class="btn btn-info mr-1" (click)="ClearDetail()">
+              Clear
+            </button>
+          </div>
+          <div>
+            <div class="row form-group tableFixHead" id="exceldetaildiv">
+              <table class="table table-responsive table-bordered canvas_detail_pdf" style="max-height: 410px; min-height: 410px;" id="exceldetail">
+                <tbody>
+                  <tr>
+                    <th>
+                      Audit ID
+                    </th>
+                    <th>
+                      Audit Scanned On
+                    </th>
+                    <th>
+                      Audit Scanned By
+                    </th>
+                    <th>
+                      Serial Number
+                    </th>
+                    <th>
+                      Item Name
+                    </th>
+                    <th>
+                      System Location Name
+                    </th>
+                    <th>
+                      Scanned Location Name
+                    </th>
+                    <th>
+                      Status
+                    </th>
+                  </tr>
+                  <tr *ngFor="let x1 of auditReportDetail;let indexofSalepayhod=index">
+                    <td>
+                      {{x1.auditID}}
+                    </td>
+                    <td>
+                      {{x1.scannedDate}}
+                    </td>
+                    <td>
+                      {{x1.scannedBy}}
+                    </td>
+                    <td>
+                      {{x1.serialNumber}}
+                    </td>
+                    <td>
+                      {{x1.itemName}}
+                    </td>
+                    <td>
+                      {{x1.systemLocationName}}
+                    </td>
+                    <td>
+                      {{x1.scanLocationName}}
+                    </td>
+                    <td>
+                      {{x1.statusText}}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>

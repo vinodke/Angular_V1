@@ -8,10 +8,12 @@ import { CoreModule } from './core/core.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { SidebarnavComponent } from './core/sidebarnav/sidebarnav.component';
+import { AuditreportComponent } from './features/report/auditreport/auditreport.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    AuditreportComponent
   ],
   imports: [
     CommonModule,
