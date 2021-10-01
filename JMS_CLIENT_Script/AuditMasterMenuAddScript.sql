@@ -1,3 +1,4 @@
+
 	IF NOT EXISTS(SELECT 1 FROM [dbo].[Menus] WHERE [MenuName] = 'AuditMaster')
   BEGIN
   INSERT INTO [dbo].[Menus]([MenuName],[MenuText],[MenuIconName],[IsDeleted],[CreatedBy]
@@ -74,6 +75,20 @@ INSERT INTO [dbo].[AppMenus]([ApplicationID]
     ,[CreatedBy]
     ,[CreatedDate])
 SELECT 'FATWEBUI', 'CONTEXTMENU','AuditMaster','View',0, 0, 'Admin', GETDATE()
+END
+
+IF NOT EXISTS(SELECT * FROM [dbo].[AppMenus] WHERE [ParentMenuName] = 'AuditMaster' AND [MenuName] = 'Release')
+BEGIN
+
+INSERT INTO [dbo].[AppMenus]([ApplicationID]
+    ,[MenuType]
+    ,[ParentMenuName]
+    ,[MenuName]
+    ,[SortOrder]
+    ,[IsDeleted]
+    ,[CreatedBy]
+    ,[CreatedDate])
+SELECT 'FATWEBUI', 'CONTEXTMENU','AuditMaster','Release',0, 0, 'Admin', GETDATE()
 END
 
 DECLARE @AppMenuID INT = ISNULL((SELECT ID FROM [dbo].[AppMenus] WHERE [MenuName] = 'AuditMaster'),0)

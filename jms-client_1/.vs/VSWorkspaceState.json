@@ -3,14 +3,14 @@
     "",
     "\\src",
     "\\src\\app",
-    "\\src\\app\\shared",
-    "\\src\\app\\shared\\component",
-    "\\src\\app\\shared\\component\\grid",
-    "\\src\\app\\shared\\CustomPipes",
-    "\\src\\app\\shared\\interface",
+    "\\src\\app\\features",
+    "\\src\\app\\features\\master\\auditmaster",
+    "\\src\\app\\features\\report",
+    "\\src\\app\\features\\report\\auditreport",
     "\\src\\app\\shared\\model",
     "\\src\\assets",
     "\\src\\environments"
   ],
+  "SelectedNode": "\\src\\app\\features\\report\\auditreport\\auditreport.component.html",
   "PreviewInSolutionExplorer": false
 }
