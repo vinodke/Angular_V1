@@ -148,7 +148,7 @@ export class AuditmasterService {
 
   veridyAuditmaster(auditId: string, data: any) {
     debugger
-    return this.http.post<any>(`${environment.apiUrl}/Audit/AcceptLocationMismatch/` + auditId,
+    return this.http.put<any>(`${environment.apiUrl}/Audit/AcceptLocationMismatch/` + auditId,
       data, this.httpOptions)
       .pipe(tap((res: any) => {
         debugger

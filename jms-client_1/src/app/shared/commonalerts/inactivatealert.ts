@@ -185,7 +185,7 @@ export class InactivateAlert {
         releaseResponse = this.CallApiMethodToVerify(Id, Locations) as Observable<any>;
         releaseResponse.subscribe(
           result => {
-            this.SuccessMessage();
+            this.SuccessMessageDiscrepancy();
             //this.auditmasterService.refreshClickevent.next()
             //this.reload(entityName);
           },
@@ -235,6 +235,19 @@ export class InactivateAlert {
     Toast.fire({
       icon: 'success',
       title: 'Successfully Inactivated!!!'
+    });
+  }
+
+  SuccessMessageDiscrepancy() {
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000
+    });
+    Toast.fire({
+      icon: 'success',
+      title: 'Successfully Added Discrepancy!!!'
     });
   }
 
