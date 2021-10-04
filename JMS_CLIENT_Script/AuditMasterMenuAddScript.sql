@@ -219,3 +219,17 @@ BEGIN
 		SELECT 1, 'FATWEBUI', @MenuID, 0, 'Admin', GETDATE(), NULL, NULL, 'HOST'
 	END
 END
+
+SET @MenuID = ISNULL((SELECT ID FROM [dbo].[AppMenus] WHERE MenuName = 'AuditMaster'), 0)
+
+IF @MenuID <> 0
+BEGIN
+	IF NOT EXISTS(SELECT 1 FROM [dbo].[AppRoleMenus] WHERE AppMenuID = @MenuID AND RoleName = 1)
+	BEGIN
+		INSERT INTO [dbo].[AppRoleMenus]([RoleName],[ApplicationID],[AppMenuID],[IsDeleted]
+			,[CreatedBy],[CreatedDate],[ModifiedBy],[ModifiedDate],[CompanyID])
+		SELECT 1, 'FATWEBUI', @MenuID, 0, 'Admin', GETDATE(), NULL, NULL, 'HOST'
+	END
+END
+
+GO
